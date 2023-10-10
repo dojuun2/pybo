@@ -34,6 +34,9 @@ pip install "uvicorn[standard]"
 
 # SQLAlchemy
 pip install sqlalchemy
+
+# alembic
+pip install alembic
 ```
 
 ## Commands
@@ -63,4 +66,17 @@ uvicorn main:app --reload
 # Svlete 서버 실행하기
 # C:\projects\myapi\frontend>
 npm run dev
+
+
+# 모델 관련 명령어
+# 1. alembic 초기화 작업
+alembic init migrations
+
+# 2. 리비전 파일 생성하기
+# 리비전 파일에는 테이블을 생성 또는 변경하는 실행문들이 들어있음
+alembic revision --autogenerate
+
+# 3. 리비전 파일 실행
+# 테이블이 생성됨
+alembic upgrade head
 ```
