@@ -9,6 +9,17 @@
 - FastAPI
 - Node.js
 - Svelte
+- Sqlite3
+
+## 프로젝트 구조
+### 파일
+- main.py: 프로젝트 설정 파일
+- database.py: 데이터베이스 설정 파일
+- models.py: 모델 관리 파일
+
+### 디렉터리
+- domain: API 구성 디렉터리
+- frontend: Svelte 프레임워크 디렉터리
 
 ## 필요 라이브러리 설치 명령어(계속 추가 예정)
 ```bash
@@ -20,6 +31,9 @@ npm create vite@latest frontend -- --template svelte
 
 # uvicorn
 pip install "uvicorn[standard]"
+
+# SQLAlchemy
+pip install sqlalchemy
 ```
 
 ## Commands
@@ -50,5 +64,3 @@ uvicorn main:app --reload
 # C:\projects\myapi\frontend>
 npm run dev
 ```
-<br>
-
