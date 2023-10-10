@@ -23,11 +23,9 @@
 
 ## 필요 라이브러리 설치 명령어(계속 추가 예정)
 ```bash
-# fastapi
+# Backend
+# fastapi 프레임워크 설치 명령어
 pip install fastapi
-
-# Svelte
-npm create vite@latest frontend -- --template svelte
 
 # uvicorn
 pip install "uvicorn[standard]"
@@ -37,6 +35,14 @@ pip install sqlalchemy
 
 # alembic
 pip install alembic
+
+
+# Frontend
+# Svelte 프레임워크 설치 명령어
+npm create vite@latest frontend -- --template svelte
+
+# svelte-spa-router 설치 명령어
+npm install svelte-spa-router
 ```
 
 ## Commands
