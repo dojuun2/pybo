@@ -20,3 +20,12 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # 데이터베이스 모델을 정의하는 기본 베이스 클래스를 생성
 # SQLAlchemy의 ORM을 사용하여 데이터베이스 테이블을 정의할 때 이 클래스를 상속
 Base = declarative_base()
+
+
+# db 세션 객체를 리턴하는 제너레이터 get_db 함수
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
