@@ -42,3 +42,5 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         })
     })
 }
+
+export default fastapi
