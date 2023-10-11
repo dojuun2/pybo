@@ -432,7 +432,7 @@
         "kind": 2,
         "importPath": "domain.answer.answer_router",
         "description": "domain.answer.answer_router",
-        "peekOfCode": "def answer_create(\n    answer_create: answer_schema.AnswerCreate,\n    question_id: int,\n    db: Session = Depends(get_db),\n):\n    # 답변에 대한 질문 가져오기\n    question = question_crud.question_detail(db, question_id)\n    if not question:\n        raise HTTPException(status_code=404, detail=\"존재하지 않는 질문입니다.\")\n    # 답변 등록",
+        "peekOfCode": "def answer_create(\n    answer_create: answer_schema.AnswerCreate,\n    question_id: int,\n    db: Session = Depends(get_db),\n):\n    # 답변에 대한 질문 가져오기\n    question = question_crud.question_detail(db, question_id)\n    if not question:\n        raise HTTPException(status_code=404, detail=\"Question not found\")\n    # 답변 등록",
         "detail": "domain.answer.answer_router",
         "documentation": {}
     },

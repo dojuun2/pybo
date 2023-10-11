@@ -20,7 +20,7 @@ def answer_create(
     question = question_crud.question_detail(db, question_id)
 
     if not question:
-        raise HTTPException(status_code=404, detail="존재하지 않는 질문입니다.")
+        raise HTTPException(status_code=404, detail="Question not found")
 
     # 답변 등록
     answer_crud.answer_create(db, answer_create, question)
