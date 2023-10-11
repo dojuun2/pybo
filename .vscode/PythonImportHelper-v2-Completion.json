@@ -1,0 +1,655 @@
+[
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "answer_schema",
+        "importPath": "domain.answer",
+        "description": "domain.answer",
+        "isExtraImport": true,
+        "detail": "domain.answer",
+        "documentation": {}
+    },
+    {
+        "label": "answer_schema",
+        "importPath": "domain.answer",
+        "description": "domain.answer",
+        "isExtraImport": true,
+        "detail": "domain.answer",
+        "documentation": {}
+    },
+    {
+        "label": "answer_crud",
+        "importPath": "domain.answer",
+        "description": "domain.answer",
+        "isExtraImport": true,
+        "detail": "domain.answer",
+        "documentation": {}
+    },
+    {
+        "label": "answer_router",
+        "importPath": "domain.answer",
+        "description": "domain.answer",
+        "isExtraImport": true,
+        "detail": "domain.answer",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "models",
+        "description": "models",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Answer",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Question",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Answer",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Question",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "starlette",
+        "description": "starlette",
+        "isExtraImport": true,
+        "detail": "starlette",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "question_crud",
+        "importPath": "domain.question",
+        "description": "domain.question",
+        "isExtraImport": true,
+        "detail": "domain.question",
+        "documentation": {}
+    },
+    {
+        "label": "question_crud",
+        "importPath": "domain.question",
+        "description": "domain.question",
+        "isExtraImport": true,
+        "detail": "domain.question",
+        "documentation": {}
+    },
+    {
+        "label": "question_schema",
+        "importPath": "domain.question",
+        "description": "domain.question",
+        "isExtraImport": true,
+        "detail": "domain.question",
+        "documentation": {}
+    },
+    {
+        "label": "question_router",
+        "importPath": "domain.question",
+        "description": "domain.question",
+        "isExtraImport": true,
+        "detail": "domain.question",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Answer",
+        "importPath": "domain.answer.answer_schema",
+        "description": "domain.answer.answer_schema",
+        "isExtraImport": true,
+        "detail": "domain.answer.answer_schema",
+        "documentation": {}
+    },
+    {
+        "label": "Sequence",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "engine_from_config",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "pool",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "fileConfig",
+        "importPath": "logging.config",
+        "description": "logging.config",
+        "isExtraImport": true,
+        "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.ext.declarative",
+        "description": "sqlalchemy.ext.declarative",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.declarative",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "starlette.middleware.cors",
+        "description": "starlette.middleware.cors",
+        "isExtraImport": true,
+        "detail": "starlette.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "answer_create",
+        "kind": 2,
+        "importPath": "domain.answer.answer_crud",
+        "description": "domain.answer.answer_crud",
+        "peekOfCode": "def answer_create(db: Session, answer_create: answer_schema.AnswerCreate, question: Question):\n    db_answer = Answer(content=answer_create.content, create_date=datetime.now(), question=question)\n    db.add(db_answer)\n    db.commit()\n# # 답변 조회\n# def answer_list(db: Session, question: Question):\n#     answer = db.query(Answer).filter(Question.id==question.id).all()\n#     return answer",
+        "detail": "domain.answer.answer_crud",
+        "documentation": {}
+    },
+    {
+        "label": "answer_create",
+        "kind": 2,
+        "importPath": "domain.answer.answer_router",
+        "description": "domain.answer.answer_router",
+        "peekOfCode": "def answer_create(\n    answer_create: answer_schema.AnswerCreate,\n    question_id: int,\n    db: Session = Depends(get_db),\n):\n    # 답변에 대한 질문 가져오기\n    question = question_crud.question_detail(db, question_id)\n    if not question:\n        raise HTTPException(status_code=404, detail=\"존재하지 않는 질문입니다.\")\n    # 답변 등록",
+        "detail": "domain.answer.answer_router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "domain.answer.answer_router",
+        "description": "domain.answer.answer_router",
+        "peekOfCode": "router = APIRouter(prefix=\"/api/answer\")\n# 답변 등록 api\n@router.post(\"/create/{question_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef answer_create(\n    answer_create: answer_schema.AnswerCreate,\n    question_id: int,\n    db: Session = Depends(get_db),\n):\n    # 답변에 대한 질문 가져오기\n    question = question_crud.question_detail(db, question_id)",
+        "detail": "domain.answer.answer_router",
+        "documentation": {}
+    },
+    {
+        "label": "AnswerCreate",
+        "kind": 6,
+        "importPath": "domain.answer.answer_schema",
+        "description": "domain.answer.answer_schema",
+        "peekOfCode": "class AnswerCreate(BaseModel):\n    content: str\n    @validator(\"content\")\n    def not_empty(cls, v):\n        if not v or not v.strip():\n            raise ValueError(\"빈 값은 허용되지 않습니다.\")\n        return v\n# 답변 조회 출력 스키마\nclass Answer(BaseModel):\n    id: int",
+        "detail": "domain.answer.answer_schema",
+        "documentation": {}
+    },
+    {
+        "label": "Answer",
+        "kind": 6,
+        "importPath": "domain.answer.answer_schema",
+        "description": "domain.answer.answer_schema",
+        "peekOfCode": "class Answer(BaseModel):\n    id: int\n    content: str\n    create_date: datetime.datetime",
+        "detail": "domain.answer.answer_schema",
+        "documentation": {}
+    },
+    {
+        "label": "question_list",
+        "kind": 2,
+        "importPath": "domain.question.question_crud",
+        "description": "domain.question.question_crud",
+        "peekOfCode": "def question_list(db: Session):\n    question_list = db.query(Question).order_by(Question.create_date.desc()).all()\n    return question_list\n# 질문 상세 조회\ndef question_detail(db: Session, question_id: int):\n    question = db.query(Question).get(question_id)\n    return question",
+        "detail": "domain.question.question_crud",
+        "documentation": {}
+    },
+    {
+        "label": "question_detail",
+        "kind": 2,
+        "importPath": "domain.question.question_crud",
+        "description": "domain.question.question_crud",
+        "peekOfCode": "def question_detail(db: Session, question_id: int):\n    question = db.query(Question).get(question_id)\n    return question",
+        "detail": "domain.question.question_crud",
+        "documentation": {}
+    },
+    {
+        "label": "question_list",
+        "kind": 2,
+        "importPath": "domain.question.question_router",
+        "description": "domain.question.question_router",
+        "peekOfCode": "def question_list(db: Session = Depends(get_db)):\n    _question_list = question_crud.question_list(db)\n    return _question_list\n# 질문 상세 조회\n@router.get(\"/detail/{question_id}\", response_model=question_schema.Question)\ndef question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)\n    return question",
+        "detail": "domain.question.question_router",
+        "documentation": {}
+    },
+    {
+        "label": "question_detail",
+        "kind": 2,
+        "importPath": "domain.question.question_router",
+        "description": "domain.question.question_router",
+        "peekOfCode": "def question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)\n    return question",
+        "detail": "domain.question.question_router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "domain.question.question_router",
+        "description": "domain.question.question_router",
+        "peekOfCode": "router = APIRouter(prefix=\"/api/question\")\n# 질문 목록 조회\n@router.get(\"/list\", response_model=list[question_schema.Question])\ndef question_list(db: Session = Depends(get_db)):\n    _question_list = question_crud.question_list(db)\n    return _question_list\n# 질문 상세 조회\n@router.get(\"/detail/{question_id}\", response_model=question_schema.Question)\ndef question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)",
+        "detail": "domain.question.question_router",
+        "documentation": {}
+    },
+    {
+        "label": "Question",
+        "kind": 6,
+        "importPath": "domain.question.question_schema",
+        "description": "domain.question.question_schema",
+        "peekOfCode": "class Question(BaseModel):\n    id: int\n    subject: str\n    content: str\n    create_date: datetime.datetime\n    answers: list[Answer] = []  # 답변 조회에 사용될 속성",
+        "detail": "domain.question.question_schema",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.55d444d7ff5c_",
+        "description": "migrations.versions.55d444d7ff5c_",
+        "peekOfCode": "def upgrade() -> None:\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.create_table('question',\n    sa.Column('id', sa.Integer(), nullable=False),\n    sa.Column('subject', sa.String(), nullable=False),\n    sa.Column('content', sa.Text(), nullable=False),\n    sa.Column('create_date', sa.DateTime(), nullable=False),\n    sa.PrimaryKeyConstraint('id')\n    )\n    op.create_table('answer',",
+        "detail": "migrations.versions.55d444d7ff5c_",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.55d444d7ff5c_",
+        "description": "migrations.versions.55d444d7ff5c_",
+        "peekOfCode": "def downgrade() -> None:\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.drop_table('answer')\n    op.drop_table('question')\n    # ### end Alembic commands ###",
+        "detail": "migrations.versions.55d444d7ff5c_",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_offline",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n    Calls to context.execute() here emit the given string to the\n    script output.\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_online",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "config = context.config\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\n# add your model's MetaData object here\n# for 'autogenerate' support\n# from myapp import mymodel\ntarget_metadata = models.Base.metadata\n# target_metadata = None",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "target_metadata",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "target_metadata = models.Base.metadata\n# target_metadata = None\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "def get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SQLALCHEMY_DATABASE_URL",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SQLALCHEMY_DATABASE_URL = \"sqlite:///./pybo.db\"\n# 커넥션 풀 생성\n# 커넥션 풀: 데이터베이스에 접속하는 객체를 일정 개수만큼 만들어놓고 돌려가며 사용하는 것을 말함\n# 데이터 베이스에 접속하는 세션 수를 제어하고, 또 세션 접속에 소요되는 시간을 줄이고자 하는 용도로 사용\nengine = create_engine(\n    SQLALCHEMY_DATABASE_URL, connect_args={\"check_same_thread\": False}\n)\n# sessionmaker 클래스\n# 데이터베이스와 상호작용하는 세션을 생성\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "engine = create_engine(\n    SQLALCHEMY_DATABASE_URL, connect_args={\"check_same_thread\": False}\n)\n# sessionmaker 클래스\n# 데이터베이스와 상호작용하는 세션을 생성\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# declarative_base()\n# 데이터베이스 모델을 정의하는 기본 베이스 클래스를 생성\n# SQLAlchemy의 ORM을 사용하여 데이터베이스 테이블을 정의할 때 이 클래스를 상속\nBase = declarative_base()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# declarative_base()\n# 데이터베이스 모델을 정의하는 기본 베이스 클래스를 생성\n# SQLAlchemy의 ORM을 사용하여 데이터베이스 테이블을 정의할 때 이 클래스를 상속\nBase = declarative_base()\n# db 세션 객체를 리턴하는 제너레이터 get_db 함수\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "Base = declarative_base()\n# db 세션 객체를 리턴하는 제너레이터 get_db 함수\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\n# CORS 예외 처리\norigins = [\n    \"http://localhost:5173\"     # 또는 \"http://127.0.0.1:5173\"\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,\n    allow_methods=[\"*\"],",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "origins",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "origins = [\n    \"http://localhost:5173\"     # 또는 \"http://127.0.0.1:5173\"\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "Question",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Question(Base):\n    __tablename__ = \"question\"\n    id = Column(Integer, primary_key=True)\n    subject = Column(String, nullable=False)\n    content = Column(Text, nullable=False)\n    create_date = Column(DateTime, nullable=False)\n# 답변 모델\nclass Answer(Base):\n    __tablename__ = \"answer\"\n    id = Column(Integer, primary_key=True)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Answer",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Answer(Base):\n    __tablename__ = \"answer\"\n    id = Column(Integer, primary_key=True)\n    content = Column(Text, nullable=False)\n    create_date = Column(DateTime, nullable=False)\n    question_id = Column(Integer, ForeignKey(\"question.id\"))\n    question = relationship(\"Question\", backref=\"answers\")",
+        "detail": "models",
+        "documentation": {}
+    }
+]
