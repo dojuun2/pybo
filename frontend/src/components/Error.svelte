@@ -2,16 +2,16 @@
     export let error    // 전달받은 오류
 </script>
 
-{#if typeof error.detila === "string"}  <!-- 일반 오류 -->
-    <ul>
-        <li>{error.detail}</li>
-    </ul>
+{#if typeof error.detail === "string"}  <!-- 일반 오류 -->
+    <div class="alert alert-danger" role="alert">
+        <div>{error.detail}</div>
+    </div>
 {:else if typeof error.detail === "object" && error.detail.length > 0}  <!-- 필드 오류 -->
-    <ul>
+    <div class="alert alert-danger" role="alert">
         {#each error.detail as err, i}
-            <li>
+            <div>
                 <strong>{err.loc[1]}</strong>: {err.msg}
-            </li>
+            </div>    
         {/each}
-    </ul>    
+    </div>
 {/if}
