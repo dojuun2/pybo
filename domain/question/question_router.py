@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
 from domain.question import question_crud, question_schema
+from starlette import status
 
 
 router = APIRouter(prefix="/api/question")
@@ -19,3 +20,11 @@ def question_list(db: Session = Depends(get_db)):
 def question_detail(question_id: int, db: Session = Depends(get_db)):
     question = question_crud.question_detail(db=db, question_id=question_id)
     return question
+
+
+# 질문 등록
+@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+def question_create(
+    question_create: question_schema.QuestionCreate, db: Session = Depends(get_db)
+):
+    question_crud.question_create(db, question_create)

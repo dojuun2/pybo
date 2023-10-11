@@ -17,6 +17,14 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "answer_schema",
         "importPath": "domain.answer",
         "description": "domain.answer",
@@ -194,6 +202,14 @@
         "documentation": {}
     },
     {
+        "label": "status",
+        "importPath": "starlette",
+        "description": "starlette",
+        "isExtraImport": true,
+        "detail": "starlette",
+        "documentation": {}
+    },
+    {
         "label": "get_db",
         "importPath": "database",
         "description": "database",
@@ -271,6 +287,22 @@
         "description": "pydantic",
         "isExtraImport": true,
         "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "QuestionCreate",
+        "importPath": "domain.question.question_schema",
+        "description": "domain.question.question_schema",
+        "isExtraImport": true,
+        "detail": "domain.question.question_schema",
         "documentation": {}
     },
     {
@@ -468,7 +500,7 @@
         "kind": 2,
         "importPath": "domain.question.question_crud",
         "description": "domain.question.question_crud",
-        "peekOfCode": "def question_list(db: Session):\n    question_list = db.query(Question).order_by(Question.create_date.desc()).all()\n    return question_list\n# 질문 상세 조회\ndef question_detail(db: Session, question_id: int):\n    question = db.query(Question).get(question_id)\n    return question",
+        "peekOfCode": "def question_list(db: Session):\n    question_list = db.query(Question).order_by(Question.create_date.desc()).all()\n    return question_list\n# 질문 상세 조회\ndef question_detail(db: Session, question_id: int):\n    question = db.query(Question).get(question_id)\n    return question\n# 질문 등록\ndef question_create(db: Session, question_create: QuestionCreate):\n    db_question = Question(",
         "detail": "domain.question.question_crud",
         "documentation": {}
     },
@@ -477,7 +509,16 @@
         "kind": 2,
         "importPath": "domain.question.question_crud",
         "description": "domain.question.question_crud",
-        "peekOfCode": "def question_detail(db: Session, question_id: int):\n    question = db.query(Question).get(question_id)\n    return question",
+        "peekOfCode": "def question_detail(db: Session, question_id: int):\n    question = db.query(Question).get(question_id)\n    return question\n# 질문 등록\ndef question_create(db: Session, question_create: QuestionCreate):\n    db_question = Question(\n        subject=question_create.subject,\n        content=question_create.content,\n        create_date=datetime.now(),\n    )",
+        "detail": "domain.question.question_crud",
+        "documentation": {}
+    },
+    {
+        "label": "question_create",
+        "kind": 2,
+        "importPath": "domain.question.question_crud",
+        "description": "domain.question.question_crud",
+        "peekOfCode": "def question_create(db: Session, question_create: QuestionCreate):\n    db_question = Question(\n        subject=question_create.subject,\n        content=question_create.content,\n        create_date=datetime.now(),\n    )\n    db.add(db_question)\n    db.commit()",
         "detail": "domain.question.question_crud",
         "documentation": {}
     },
@@ -486,7 +527,7 @@
         "kind": 2,
         "importPath": "domain.question.question_router",
         "description": "domain.question.question_router",
-        "peekOfCode": "def question_list(db: Session = Depends(get_db)):\n    _question_list = question_crud.question_list(db)\n    return _question_list\n# 질문 상세 조회\n@router.get(\"/detail/{question_id}\", response_model=question_schema.Question)\ndef question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)\n    return question",
+        "peekOfCode": "def question_list(db: Session = Depends(get_db)):\n    _question_list = question_crud.question_list(db)\n    return _question_list\n# 질문 상세 조회\n@router.get(\"/detail/{question_id}\", response_model=question_schema.Question)\ndef question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)\n    return question\n# 질문 등록\n@router.post(\"/create\", status_code=status.HTTP_204_NO_CONTENT)",
         "detail": "domain.question.question_router",
         "documentation": {}
     },
@@ -495,7 +536,16 @@
         "kind": 2,
         "importPath": "domain.question.question_router",
         "description": "domain.question.question_router",
-        "peekOfCode": "def question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)\n    return question",
+        "peekOfCode": "def question_detail(question_id: int, db: Session = Depends(get_db)):\n    question = question_crud.question_detail(db=db, question_id=question_id)\n    return question\n# 질문 등록\n@router.post(\"/create\", status_code=status.HTTP_204_NO_CONTENT)\ndef question_create(\n    question_create: question_schema.QuestionCreate, db: Session = Depends(get_db)\n):\n    question_crud.question_create(db, question_create)",
+        "detail": "domain.question.question_router",
+        "documentation": {}
+    },
+    {
+        "label": "question_create",
+        "kind": 2,
+        "importPath": "domain.question.question_router",
+        "description": "domain.question.question_router",
+        "peekOfCode": "def question_create(\n    question_create: question_schema.QuestionCreate, db: Session = Depends(get_db)\n):\n    question_crud.question_create(db, question_create)",
         "detail": "domain.question.question_router",
         "documentation": {}
     },
@@ -513,7 +563,16 @@
         "kind": 6,
         "importPath": "domain.question.question_schema",
         "description": "domain.question.question_schema",
-        "peekOfCode": "class Question(BaseModel):\n    id: int\n    subject: str\n    content: str\n    create_date: datetime.datetime\n    answers: list[Answer] = []  # 답변 조회에 사용될 속성",
+        "peekOfCode": "class Question(BaseModel):\n    id: int\n    subject: str\n    content: str\n    create_date: datetime.datetime\n    answers: list[Answer] = []  # 답변 조회에 사용될 속성\n# 질문 등록 입력 스키마\nclass QuestionCreate(BaseModel):\n    subject: str\n    content: str",
+        "detail": "domain.question.question_schema",
+        "documentation": {}
+    },
+    {
+        "label": "QuestionCreate",
+        "kind": 6,
+        "importPath": "domain.question.question_schema",
+        "description": "domain.question.question_schema",
+        "peekOfCode": "class QuestionCreate(BaseModel):\n    subject: str\n    content: str\n    @validator(\"subject\", \"content\")\n    def not_empty(cls, v):\n        if not v or not v.strip():\n            raise ValueError(\"빈 값은 허용되지 않습니다.\")\n        return v",
         "detail": "domain.question.question_schema",
         "documentation": {}
     },

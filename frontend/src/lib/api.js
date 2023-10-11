@@ -23,30 +23,32 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         options['body'] = body
     }
 
-    fetch(_url, options).then(response => {response.json()
-        .then(json => {
+    fetch(_url, options)
+        .then(response => {
             if (response.status === 204) {      // No content
                 if (success_callback) {
                     success_callback()
                 }
                 return
             }
-            if (response.status >= 200 && response.status < 300) {      // 200 ~ 300
-                if (success_callback) {
-                    success_callback(json)
-                }
-            } else {
-                if (failure_callback) {
-                    failure_callback(json)
-                } else {
-                    alert(JSON.stringify(json))
-                }
-            }
+            response.json()
+                .then(json => {
+                    if (response.status >= 200 && response.status < 300) {      // 200 ~ 300
+                        if (success_callback) {
+                            success_callback(json)
+                        }
+                    } else {
+                        if (failure_callback) {
+                            failure_callback(json)
+                        } else {
+                            alert(JSON.stringify(json))
+                        }
+                    }
+                })
+                .catch(error => {
+                    alert(JSON.stringify(error))
+                })
         })
-        .catch(error => {
-            alert(JSON.stringify(error))
-        })
-    })
 }
 
 export default fastapi
