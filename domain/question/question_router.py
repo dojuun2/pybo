@@ -9,10 +9,13 @@ router = APIRouter(prefix="/api/question")
 
 
 # 질문 목록 조회
-@router.get("/list", response_model=list[question_schema.Question])
-def question_list(db: Session = Depends(get_db)):
-    _question_list = question_crud.question_list(db)
-    return _question_list
+@router.get("/list", response_model=question_schema.QuestionList)
+def question_list(db: Session = Depends(get_db), page: int = 0, size: int = 10):
+    total, question_list = question_crud.question_list(db, skip=page * size, limit=size)
+    return {
+        "total": total,
+        "question_list": question_list
+    }
 
 
 # 질문 상세 조회

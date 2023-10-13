@@ -5,9 +5,21 @@ from models import Question
 
 
 # 질문 목록 조회
-def question_list(db: Session):
-    question_list = db.query(Question).order_by(Question.create_date.desc()).all()
-    return question_list
+def question_list(db: Session, skip: int = 0, limit: int = 10):
+    """
+    Args:
+        - skip: 조회한 데이터의 시작 위치
+        - limit: 시작 위치부터 가져올 데이터 건수
+    
+    Returns:
+        total, question_list
+    """
+    question_list_query = db.query(Question).order_by(Question.id.desc())     # 쿼리문
+    total = question_list_query.count()     # 전체 건수
+    
+    question_list = question_list_query.offset(skip).limit(limit).all()     # 페이징 처리된 질문 목록
+    
+    return total, question_list
 
 
 # 질문 상세 조회
