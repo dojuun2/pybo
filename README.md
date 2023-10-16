@@ -46,6 +46,9 @@ npm install svelte-spa-router
 
 # 부트스트랩
 npm install bootstrap
+
+# moment
+npm install moment
 ```
 
 ## Commands

@@ -2,6 +2,7 @@
     import fastapi from "../lib/api";
     import Error from "../components/Error.svelte"
     import { push } from "svelte-spa-router";
+    import moment from "moment/min/moment-with-locales"
 
     export let params = {}
     let question_id = params.question_id
@@ -45,7 +46,7 @@
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{question.content}</div>
             <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2">{question.create_date}</div>
+                <div class="badge bg-light text-dark p-2">{moment(question.create_date).format("YYYY년 MM월 DD일 HH:mm")}</div>
             </div>
         </div>
     </div>
@@ -60,7 +61,7 @@
                 <div class="card-text" style="white-space: pre-line;">{answer.content}</div>
                 <div class="d-flex justify-content-end">
                     <div class="badge bg-light text-dark p-2">
-                        {answer.create_date}
+                        {moment(answer.create_date).format("YYYY년 MM월 DD일 HH:mm")}
                     </div>
                 </div>
             </div>
