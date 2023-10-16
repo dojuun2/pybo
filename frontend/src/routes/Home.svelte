@@ -1,10 +1,10 @@
 <script>
   import { link } from "svelte-spa-router";
   import fastapi from "../lib/api"
+  import { page } from "../lib/store"
 
   let question_list = []
   let size = 10
-  let page = 0
   let total = 0
   $: total_page = Math.ceil(total / size)   // 스벨트에서 변수 앞에 `$:` 가 붙으면 `반응형 변수`
   
@@ -17,13 +17,13 @@
 
     fastapi('get', '/api/question/list', params, (json) => {
       question_list = json.question_list
-      page = _page
+      $page = _page     // $page: 스토어 변수 -> store.js 파일에 있는 page 변수
       total = json.total
     })
   }
 
   // 질문 목록 가져오기
-  get_question_list(0)
+  $: get_question_list($page)   // page 값이 변경될 경우 get_question_list() 함수도 다시 호출하라는 의미
 </script>
 
 <div class="container my-3">
@@ -50,22 +50,22 @@
   <!-- 페이징 처리 시작 -->
   <ul class="pagination justify-content-center">
     <!-- 이전 페이지 -->
-    <li class="page-item {page <= 0 && 'disabled'}">
-      <button class="page-link" on:click="{() => get_question_list(page-1)}">이전</button>
+    <li class="page-item {$page <= 0 && 'disabled'}">
+      <button class="page-link" on:click="{() => get_question_list($page-1)}">이전</button>
     </li>
     <!-- 페이지 번호 -->
     {#each Array(total_page) as _, loop_page}
-      {#if loop_page >= page - 5 && loop_page <= page + 5}
-        <li class="page-item {loop_page === page && 'active'}">
+      {#if loop_page >= $page - 5 && loop_page <= $page + 5}
+        <li class="page-item {loop_page === $page && 'active'}">
           <button on:click="{() => get_question_list(loop_page)}" class="page-link">{loop_page+1}</button>
         </li>  
       {/if}
     {/each}
     <!-- 다음 페이지 -->
-    <li class="page-item {page >= total_page - 1 && 'disabled'}">
-      <button class="page-link" on:click="{() => get_question_list(page+1)}">다음</button>
+    <li class="page-item {$page >= total_page - 1 && 'disabled'}">
+      <button class="page-link" on:click="{() => get_question_list($page+1)}">다음</button>
     </li>
   </ul>
-  <!-- 페이질 처리 끝 -->
+  <!-- 페이징 처리 끝 -->
   <a use:link href="/question-create" class="btn btn-primary">질문 등록하기</a>
 </div>
