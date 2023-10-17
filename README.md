@@ -43,6 +43,10 @@ pip install "pydantic[email]"
 # 비밀번호를 암호화하기위한 라이브러리
 pip install "passlib[bcrypt]"
 
+# 인증 관련 라이브러리
+pip install python-multipart
+pip install "python-jose[cryptography]"
+
 
 # Frontend
 # Svelte 프레임워크 설치 명령어

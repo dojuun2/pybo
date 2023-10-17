@@ -25,3 +25,14 @@ def get_existing_user(db: Session, user_create: user_schema.UserCreate):
     ).first()
     
     return existing_user
+
+
+# 회원 조회
+# 로그인 시에 회원의 비밀번호를 비교하기 위해 사용될 get_user 함수
+def get_user(db: Session, username: str):
+    return db.query(User).filter(User.username == username).first()
+
+
+# 로그인
+def user_login(db: Session):
+    pass
