@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware    # CORS 예외 처리 관련 라이브러리
 from domain.question import question_router     # 질문 라우터
 from domain.answer import answer_router     # 답변 라우터
+from domain.user import user_router     # 회원 라우터
 
 app = FastAPI()
 
@@ -22,3 +23,4 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(question_router.router)
 app.include_router(answer_router.router)
+app.include_router(user_router.router)

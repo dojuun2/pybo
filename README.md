@@ -36,6 +36,13 @@ pip install sqlalchemy
 # alembic
 pip install alembic
 
+# email_validator
+pip install "pydantic[email]"
+
+# passlib
+# 비밀번호를 암호화하기위한 라이브러리
+pip install "passlib[bcrypt]"
+
 
 # Frontend
 # Svelte 프레임워크 설치 명령어
@@ -83,6 +90,9 @@ npm run dev
 # 모델 관련 명령어
 # 1. alembic 초기화 작업
 alembic init migrations
+
+# 1-1. alembic.ini 파일 > `sqlalchemy.url = sqlite:///./pybo.db`로 수정
+# 1-2. env.py 파일 > `import models` 해주고, `target_metadata = models.Base.metadata` 코드 추가
 
 # 2. 리비전 파일 생성하기
 # 리비전 파일에는 테이블을 생성 또는 변경하는 실행문들이 들어있음
