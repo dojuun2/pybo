@@ -6,7 +6,7 @@ import { writable } from "svelte/store";
  * @param {*} initValue 초기값
  * @returns Writable 스토어 변수
  */
-const persis_storage = (key, initValue) => {
+const persist_storage = (key, initValue) => {
     const storedValueStr = localStorage.getItem(key)
     const store = writable(storedValueStr != null ? JSON.parse(storedValueStr) : initValue)
     store.subscribe((val) => {
@@ -15,4 +15,7 @@ const persis_storage = (key, initValue) => {
     return store
 }
 
-export const page = persis_storage("page", 0)
+export const page = persist_storage("page", 0)
+export const access_token = persist_storage("access_token", "")
+export const username = persist_storage("username", "")
+export const is_login = persist_storage("is_login", false)   // 로그인 여부를 체크할 변수

@@ -60,6 +60,9 @@ npm install bootstrap
 
 # moment
 npm install moment
+
+# qs 패키지
+npm install qs
 ```
 
 ## Commands
