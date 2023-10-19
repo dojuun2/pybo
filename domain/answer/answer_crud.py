@@ -35,6 +35,13 @@ def answer_update(db: Session, answer: Answer, answer_update: answer_schema.Answ
     db.commit()
 
 
+# 답변 삭제
+def answer_delete(db: Session, answer: Answer):
+    db.delete(answer)
+    db.commit()
+    
+
+
 # # 답변 목록 조회
 # def answer_list(db: Session, question: Question):
 #     answer = db.query(Answer).filter(Question.id==question.id).all()

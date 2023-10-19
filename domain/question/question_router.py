@@ -60,3 +60,25 @@ def question_update(
 
     # 질문 수정하기
     question_crud.question_update(db, question, question_update=question_update)
+
+
+# 질문 삭제 api
+@router.delete("/delete/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+def question_delete(
+    question_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 삭제할 질문 가져오기
+    question = question_crud.question_detail(db, question_id=question_id)
+    if not question:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
+        )
+    if current_user.id != question.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다."
+        )
+    
+    # 삭제하기
+    question_crud.question_delete(db, question)

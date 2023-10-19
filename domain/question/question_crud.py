@@ -50,3 +50,9 @@ def question_update(db: Session, question: Question, question_update: question_s
     
     db.add(question)
     db.commit()
+
+
+# 질문 삭제
+def question_delete(db: Session, question: Question):
+    db.delete(question)
+    db.commit()
