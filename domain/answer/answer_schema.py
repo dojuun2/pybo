@@ -1,6 +1,8 @@
 import datetime
 from pydantic import BaseModel, validator
 
+from domain.user.user_schema import User
+
 
 # 답변 등록 입력 스키마
 class AnswerCreate(BaseModel):
@@ -18,3 +20,4 @@ class Answer(BaseModel):
     id: int
     content: str
     create_date: datetime.datetime
+    user: User | None   # 답변 작성자

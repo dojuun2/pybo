@@ -39,3 +39,10 @@ class Token(BaseModel):
     access_token: str
     token_type: str
     username: str
+
+
+# 작성자 출력 시 사용할 스키마
+class User(BaseModel):
+    id: int
+    username: str
+    email: str

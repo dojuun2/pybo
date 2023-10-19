@@ -27,25 +27,27 @@
   $: get_question_list($page)   // page 값이 변경될 경우 get_question_list() 함수도 다시 호출하라는 의미
 </script>
 
-<div class="container my-3">
+<div class="text-center container my-3">
   <table class="table">
     <thead>
       <tr class="table-dark">
         <th>번호</th>
-        <th>제목</th>
+        <th style="width: 50%;">제목</th>
+        <th>작성자</th>
         <th>작성일시</th>
       </tr>
     </thead>
     <tbody>
     {#each question_list as question}
-      <tr>
+      <tr class="text-center">
         <td>{question.id}</td>
-        <td>
+        <td class="text-start">
           <a use:link href="/detail/{question.id}">{question.subject}</a>
           {#if question.answers.length > 0}
             <span class="text-danger small mx-2">{question.answers.length}</span>
           {/if}
         </td>
+        <td>{question.user ? question.user.username : ""}</td>
         <td>{moment(question.create_date).format("YYYY년 MM월 DD일 HH:mm")}</td>
       </tr>
     {/each}
