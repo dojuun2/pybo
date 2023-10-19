@@ -1,5 +1,5 @@
 from datetime import datetime
-from domain.question.question_schema import QuestionCreate
+from domain.question import question_schema
 from sqlalchemy.orm import Session
 from models import Question, User
 
@@ -29,7 +29,9 @@ def question_detail(db: Session, question_id: int):
 
 
 # 질문 등록
-def question_create(db: Session, question_create: QuestionCreate, user: User):
+def question_create(
+    db: Session, question_create: question_schema.QuestionCreate, user: User
+):
     db_question = Question(
         subject=question_create.subject,
         content=question_create.content,
@@ -37,4 +39,14 @@ def question_create(db: Session, question_create: QuestionCreate, user: User):
         user=user,
     )
     db.add(db_question)
+    db.commit()
+
+
+# 질문 수정
+def question_update(db: Session, question: Question, question_update: question_schema.QuestionUpdate):
+    question.subject = question_update.subject
+    question.content = question_update.content
+    question.modify_date = datetime.now()
+    
+    db.add(question)
     db.commit()

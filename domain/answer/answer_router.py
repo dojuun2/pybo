@@ -40,3 +40,33 @@ def answer_create(
 #     # 질문에 대한 답변 가져오기
 #     answer = answer_crud.answer_list(db, question)
 #     return answer
+
+
+# 답변 한건 조회 api
+@router.get("/detail", response_model=answer_schema.Answer)
+def answer_detail(answer_id: int, db: Session = Depends(get_db)):
+    # 답변 가져오기
+    answer = answer_crud.answer_detail(db, answer_id)
+    return answer
+
+
+# 답변 수정 api
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+def answer_update(
+    answer_update: answer_schema.AnswerUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 수정할 답변 가져오기
+    answer = answer_crud.answer_detail(db, answer_update.id)
+    if not answer:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 답변입니다."
+        )
+    if not current_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다."
+        )
+    
+    # 답변 수정하기
+    answer_crud.answer_update(db, answer, answer_update)

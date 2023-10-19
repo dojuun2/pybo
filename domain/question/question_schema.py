@@ -13,6 +13,7 @@ class Question(BaseModel):
     create_date: datetime.datetime
     answers: list[Answer] = []  # 답변 조회에 사용될 속성
     user: User | None   # 질문 작성자
+    modify_date: datetime.datetime | None = None
     
 
 # 질문 등록 입력 스키마
@@ -31,3 +32,8 @@ class QuestionCreate(BaseModel):
 class QuestionList(BaseModel):
     total: int = 0
     question_list: list[Question] = []
+
+
+# 질문 수정 입력 스키마
+class QuestionUpdate(QuestionCreate):
+    id: int

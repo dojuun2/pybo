@@ -21,7 +21,21 @@ def answer_create(
     db.commit()
 
 
-# # 답변 조회
+# 답변 상세조회
+def answer_detail(db: Session, answer_id: int):
+    answer = db.query(Answer).get(answer_id)
+    return answer
+
+
+# 답변 수정
+def answer_update(db: Session, answer: Answer, answer_update: answer_schema.AnswerUpdate):
+    answer.content = answer_update.content
+    answer.modify_date = datetime.now()
+    db.add(answer)
+    db.commit()
+
+
+# # 답변 목록 조회
 # def answer_list(db: Session, question: Question):
 #     answer = db.query(Answer).filter(Question.id==question.id).all()
 #     return answer

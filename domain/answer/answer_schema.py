@@ -21,3 +21,9 @@ class Answer(BaseModel):
     content: str
     create_date: datetime.datetime
     user: User | None   # 답변 작성자
+    modify_date: datetime.datetime | None = None
+
+
+# 답변 수정 입력 스키마
+class AnswerUpdate(AnswerCreate):
+    id: int

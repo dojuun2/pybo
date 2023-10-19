@@ -14,6 +14,7 @@ class Question(Base):
     create_date = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="question_users")
+    modify_date = Column(DateTime, nullable=True)
 
 
 # 답변 모델
@@ -27,6 +28,7 @@ class Answer(Base):
     question = relationship("Question", backref="answers")
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="answer_users")
+    modify_date = Column(DateTime, nullable=True)
 
 
 # 회원 모델

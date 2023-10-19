@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
 from domain.question import question_crud, question_schema
@@ -34,3 +34,29 @@ def question_create(
 ):
     # 질문 등록하기
     question_crud.question_create(db, question_create, user=current_user)
+
+
+# 질문 수정
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+def question_update(
+    question_update: question_schema.QuestionUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 수정할 질문 가져오기
+    question = question_crud.question_detail(db, question_id=question_update.id)
+
+    # 질문이 없는 경우
+    if not question:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
+        )
+
+    # 권한 유무 확인
+    if current_user.id != question.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다."
+        )
+
+    # 질문 수정하기
+    question_crud.question_update(db, question, question_update=question_update)
