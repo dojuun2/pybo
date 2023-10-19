@@ -3,6 +3,7 @@
     import Error from "../components/Error.svelte"
     import { push } from "svelte-spa-router";
     import moment from "moment/min/moment-with-locales"
+    import { is_login } from "../lib/store";
 
     export let params = {}
     let question_id = params.question_id
@@ -72,8 +73,8 @@
     <Error error={error} />
     <form method="post" class="my-3">
         <div class="mb-3">
-            <textarea rows="10" bind:value={content} class="form-control" />
+            <textarea rows="10" bind:value={content} class="form-control" disabled={$is_login ? "" : "disabled"} />
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />
+        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" disabled={$is_login ? "" : "disabled"} />
     </form>
 </div>

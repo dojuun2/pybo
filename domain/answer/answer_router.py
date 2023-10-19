@@ -4,7 +4,8 @@ from starlette import status
 from database import get_db
 from domain.answer import answer_schema, answer_crud
 from domain.question import question_crud
-from models import Answer
+from models import Answer, User
+from domain.user.user_router import get_current_user
 
 router = APIRouter(prefix="/api/answer")
 
@@ -15,6 +16,7 @@ def answer_create(
     answer_create: answer_schema.AnswerCreate,
     question_id: int,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     # 답변에 대한 질문 가져오기
     question = question_crud.question_detail(db, question_id)
@@ -23,7 +25,7 @@ def answer_create(
         raise HTTPException(status_code=404, detail="Question not found")
 
     # 답변 등록
-    answer_crud.answer_create(db, answer_create, question)
+    answer_crud.answer_create(db, answer_create, question, user=current_user)
 
 
 # # 답변 목록 조회 api
@@ -34,7 +36,7 @@ def answer_create(
 
 #     if not question:
 #         raise HTTPException(status_code=404, detail="존재하지 않는 질문입니다.")
-    
+
 #     # 질문에 대한 답변 가져오기
 #     answer = answer_crud.answer_list(db, question)
 #     return answer

@@ -103,6 +103,7 @@ alembic init migrations
 
 # 2. 리비전 파일 생성하기
 # 리비전 파일에는 테이블을 생성 또는 변경하는 실행문들이 들어있음
+# 모델을 수정하였을 때 실행
 alembic revision --autogenerate
 
 # 3. 리비전 파일 실행

@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
+from email import header
 from os import access
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
-from jose import jwt
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
 from database import get_db
@@ -17,6 +18,9 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 # secrets.token_hex(32)
 SECRET_KEY = "d8ef910d62c71eb1fe7117f9fc623f863a06b9a07c86a53c1550bc6a963a92d5"
 ALGORITHM = "HS256"
+
+# 사용자 조회를 할 때 사용 될 'token'이 자동으로 매핑됨
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")
 
 router = APIRouter(prefix="/api/user")
 
@@ -46,18 +50,58 @@ def login_for_access_token(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="아이디 또는 비밀번호가 맞지 않습니다.",
-            headers={"WWW-Authenticate": "Bearer"},     # 인증 방식에 대한 추가 정보
+            headers={"WWW-Authenticate": "Bearer"},  # 인증 방식에 대한 추가 정보
         )
-    
+
     # 토큰 생성
     data = {
-        "sub": user.username,   # 사용자 이름
-        "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)   # 토큰 유효기간
+        "sub": user.username,  # 사용자 이름
+        "exp": datetime.utcnow()
+        + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),  # 토큰 유효기간
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-    
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "username": user.username
+        "username": user.username,
     }
+
+
+# 로그인 사용자 정보 조회
+def get_current_user(
+    token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
+):
+    """헤더 정보의 토큰값으로 사용자 정보를 조회하는 함수
+    
+    Args:
+        token (str): 헤더 정보에 포함된 토큰값.
+    
+        db (Session): 데이터베이스 세션 객체. 
+
+    Returns:
+        user: 로그인한 사용자 정보 객체
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    
+    try:
+        # 토큰을 복호화하여 토큰에 담겨 있는 사용자명을 얻어낼수 있음
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        
+        if username is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    else:
+        # 사용자 가져오기
+        user = user_crud.get_user(db=db, username=username)
+        
+        if user is None:
+            raise credentials_exception
+        
+        return user
