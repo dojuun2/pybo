@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine    
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -20,6 +20,15 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # 데이터베이스 모델을 정의하는 기본 베이스 클래스를 생성
 # SQLAlchemy의 ORM을 사용하여 데이터베이스 테이블을 정의할 때 이 클래스를 상속
 Base = declarative_base()
+
+naming_convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(column_0_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
+Base.metadata = MetaData(naming_convention=naming_convention)
 
 
 # db 세션 객체를 리턴하는 제너레이터 get_db 함수

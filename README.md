@@ -108,4 +108,7 @@ alembic revision --autogenerate
 # 3. 리비전 파일 실행
 # 테이블이 생성됨
 alembic upgrade head
+
+# 4. 2, 3번 과정에서 오류가 발생할 경우 아래 명령을 실행한 후 다시 2, 3번 과정을 수행
+alembic stamp head
 ```
