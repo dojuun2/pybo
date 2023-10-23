@@ -14,6 +14,7 @@ class Question(BaseModel):
     answers: list[Answer] = []  # 답변 조회에 사용될 속성
     user: User | None   # 질문 작성자
     modify_date: datetime.datetime | None = None
+    voter: list[User] = []  # 질문 추천인
     
 
 # 질문 등록 입력 스키마

@@ -79,6 +79,24 @@ def question_delete(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다."
         )
-    
+
     # 삭제하기
     question_crud.question_delete(db, question)
+
+
+# 질문 추천 api
+@router.post("/vote/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+def question_vote(
+    question_id: int,
+    db: Session = Depends(get_db), 
+    current_user: User = Depends(get_current_user)
+):
+    # 추천할 질문 가져오기
+    question = question_crud.question_detail(db, question_id=question_id)
+    if not question:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
+        )
+        
+    # 질문 추천
+    question_crud.question_vote(db, question, current_user)

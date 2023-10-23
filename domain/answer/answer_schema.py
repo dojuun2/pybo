@@ -23,6 +23,7 @@ class Answer(BaseModel):
     user: User | None   # 답변 작성자
     modify_date: datetime.datetime | None = None
     question_id: int    # 답변 수정 후, 질문으로 돌아가기 위한 question_id
+    voter: list[User] = []
 
 
 # 답변 수정 입력 스키마

@@ -39,7 +39,12 @@ def answer_update(db: Session, answer: Answer, answer_update: answer_schema.Answ
 def answer_delete(db: Session, answer: Answer):
     db.delete(answer)
     db.commit()
-    
+
+
+# 답변 추천
+def answer_vote(db: Session, answer: Answer, user: User):
+    answer.voter.append(user)
+    db.commit()
 
 
 # # 답변 목록 조회

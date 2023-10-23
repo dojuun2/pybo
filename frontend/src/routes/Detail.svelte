@@ -7,7 +7,7 @@
 
     export let params = {}
     let question_id = params.question_id
-    let question = {answers:[]}
+    let question = {answers:[], voter:[]}
     let content = ""
     let error = {detail:[]}
 
@@ -70,6 +70,34 @@
             )
         }
     }
+
+    // 질문 추천
+    function vote_question(question_id) {
+        let url = "/api/question/vote/" + question_id
+
+        fastapi("post", url, {}, 
+            (json) => {
+                get_question()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }   
+
+    // 답변 추천
+    function vote_answer(answer_id) {
+        let url = "/api/answer/vote/" + answer_id
+
+        fastapi("post", url, {}, 
+            (json) => {
+                get_question()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }
 </script>
 
 <div class="container my-3">
@@ -90,12 +118,16 @@
                     <div>{moment(question.create_date).format("YYYY년 MM월 DD일 HH:mm")}</div>
                 </div>
             </div>
-            {#if question.user && $username === question.user.username}
-                <div class="my-3">
+            <div class="my-3">
+                <button class="btn btn-sm btn-outline-secondary" on:click={() => vote_question(question.id)}>
+                    추천
+                    <span class="badge rounded-pill bg-success">{question.voter.length}</span>
+                </button>
+                {#if question.user && $username === question.user.username}
                     <a use:link href="/question-modify/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
                     <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_question(question.id)}>삭제</button>
-                </div>
-            {/if}
+                {/if}
+            </div>
         </div>
     </div>
 
@@ -119,12 +151,16 @@
                         <div>{moment(answer.create_date).format("YYYY년 MM월 DD일 HH:mm")}</div>
                     </div>
                 </div>
-                {#if answer.user && $username === answer.user.username}
-                    <div class="my-3">
+                <div class="my-3">
+                    <button class="btn btn-sm btn-outline-secondary" on:click={() => vote_answer(answer.id)}>
+                        추천
+                        <span class="badge rounded-pill bg-success">{answer.voter.length}</span>
+                    </button>
+                    {#if answer.user && $username === answer.user.username}
                         <a use:link href="/answer-modify/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
                         <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_answer(answer.id)}>삭제</button>
-                    </div>
-                {/if}
+                    {/if}
+                </div>
             </div>
         </div>
     {/each}
