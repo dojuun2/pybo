@@ -1,7 +1,7 @@
 <script>
     import fastapi from "../lib/api";
     import Error from "../components/Error.svelte"
-    import { push } from "svelte-spa-router";
+    import { link, push } from "svelte-spa-router";
     import moment from "moment/min/moment-with-locales"
     import { is_login, username } from "../lib/store";
 
@@ -38,6 +38,38 @@
             }
         )
     }
+
+    // 질문 삭제
+    function delete_question(question_id) {
+        if(confirm("정말 삭제하시겠습니까?")) {
+            let url = "/api/question/delete/" + question_id
+            
+            fastapi("delete", url, {}, 
+                (json) => {
+                    push("/")
+                }, 
+                (json_error) => {
+                    error = json_error
+                }
+            )
+        }
+    }
+
+    // 답변 삭제
+    function delete_answer(answer_id) {
+        if(confirm("정말 삭제하시겠습니까?")) {
+            let url = "/api/answer/delete/" + answer_id
+            
+            fastapi("delete", url, {}, 
+                (json) => {
+                    get_question()
+                }, 
+                (json_error) => {
+                    error = json_error
+                }
+            )
+        }
+    }
 </script>
 
 <div class="container my-3">
@@ -52,6 +84,12 @@
                     <div>{moment(question.create_date).format("YYYY년 MM월 DD일 HH:mm")}</div>
                 </div>
             </div>
+            {#if question.user && $username === question.user.username}
+                <div class="my-3">
+                    <a use:link href="/question-modify/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_question(question.id)}>삭제</button>
+                </div>
+            {/if}
         </div>
     </div>
 
@@ -69,6 +107,12 @@
                         <div>{moment(answer.create_date).format("YYYY년 MM월 DD일 HH:mm")}</div>
                     </div>
                 </div>
+                {#if answer.user && $username === answer.user.username}
+                    <div class="my-3">
+                        <a use:link href="/answer-modify/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+                        <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_answer(answer.id)}>삭제</button>
+                    </div>
+                {/if}
             </div>
         </div>
     {/each}

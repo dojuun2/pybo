@@ -29,7 +29,7 @@ def answer_create(
 
 
 # 답변 한건 조회 api
-@router.get("/detail", response_model=answer_schema.Answer)
+@router.get("/detail/{answer_id}", response_model=answer_schema.Answer)
 def answer_detail(answer_id: int, db: Session = Depends(get_db)):
     # 답변 가져오기
     answer = answer_crud.answer_detail(db, answer_id)
