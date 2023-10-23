@@ -38,3 +38,9 @@ class QuestionList(BaseModel):
 # 질문 수정 입력 스키마
 class QuestionUpdate(QuestionCreate):
     id: int
+
+
+# # 질문 추천취소 입력 스키마
+# class QuestionUnvote(BaseModel):
+#     question_id: int
+#     user_id: int

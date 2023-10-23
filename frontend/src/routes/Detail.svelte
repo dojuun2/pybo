@@ -9,11 +9,17 @@
     let question_id = params.question_id
     let question = {answers:[], voter:[]}
     let content = ""
+    let is_question_voted = false     // 사용자의 추천여부를 판단해줄 변수
     let error = {detail:[]}
 
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
             question = json
+            
+            // 로그인한 사용자가 추천을 한 게시물일 경우 is_question_voted true로 변경
+            if (question.voter.some(item => item.username === $username)) {
+                is_question_voted = true
+            }
         })
     }
 
@@ -73,17 +79,36 @@
 
     // 질문 추천
     function vote_question(question_id) {
-        let url = "/api/question/vote/" + question_id
+        let url = ""
 
-        fastapi("post", url, {}, 
-            (json) => {
-                get_question()
-            },
-            (json_error) => {
-                error = json_error
-            }
-        )
-    }   
+        if(!is_question_voted) {
+            // 추천을 하지 않은 게시물인 경우
+            url = "/api/question/vote/" + question_id
+
+            fastapi("post", url, {}, 
+                (json) => {
+                    get_question()
+                    is_question_voted = false
+                },
+                (json_error) => {
+                    error = json_error
+                }
+            )
+        } else {
+            // 추천을 한 게시물인 경우
+            url = "/api/question/unvote/" + question_id
+
+            fastapi("delete", url, {}, 
+                (json) => {
+                    get_question()
+                    is_question_voted = false
+                },
+                (json_error) => {
+                    error = json_error
+                }
+            )
+        }
+    }
 
     // 답변 추천
     function vote_answer(answer_id) {
@@ -119,7 +144,7 @@
                 </div>
             </div>
             <div class="my-3">
-                <button class="btn btn-sm btn-outline-secondary" on:click={() => vote_question(question.id)}>
+                <button class="btn btn-sm {is_question_voted ? "btn-secondary" : "btn-outline-secondary"}" on:click={() => vote_question(question.id)}>
                     추천
                     <span class="badge rounded-pill bg-success">{question.voter.length}</span>
                 </button>

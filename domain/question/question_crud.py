@@ -62,3 +62,9 @@ def question_delete(db: Session, question: Question):
 def question_vote(db: Session, question: Question, user: User):
     question.voter.append(user)
     db.commit()
+
+
+# 질문 추천취소
+def question_unvote(db: Session, question: Question, user: User):
+    question.voter.remove(user)
+    db.commit()

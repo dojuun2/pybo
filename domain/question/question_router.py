@@ -100,3 +100,21 @@ def question_vote(
         
     # 질문 추천
     question_crud.question_vote(db, question, current_user)
+
+
+# 질문 추천취소 api
+@router.delete("/unvote/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+def question_vote(
+    question_id: int,
+    db: Session = Depends(get_db), 
+    current_user: User = Depends(get_current_user)
+):
+    # 추천 취소할 질문 가져오기
+    question = question_crud.question_detail(db, question_id=question_id)
+    if not question:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
+        )
+        
+    # 추천취소
+    question_crud.question_unvote(db, question, current_user)
