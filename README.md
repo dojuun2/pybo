@@ -63,6 +63,9 @@ npm install moment
 
 # qs 패키지
 npm install qs
+
+# 마크다운 패키지
+npm install marked
 ```
 
 ## Commands
