@@ -93,8 +93,14 @@ def answer_vote(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 답변입니다."
         )
     
-    # 답변 추천
-    answer_crud.answer_vote(db, answer, current_user)
+    # 추천여부 판단
+    voter_information = answer_crud.get_answer_voter(db, current_user.id, answer_id)
+    if not voter_information:
+        # 질문 추천
+        answer_crud.answer_vote(db, answer, current_user)
+    else:
+        # 질문 추천취소
+        answer_crud.answer_unvote(db, answer, current_user)
 
 
 # # 답변 목록 조회 api
