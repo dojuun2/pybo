@@ -99,7 +99,7 @@ def question_vote(
         )
     
     # 가져온 질문에 대한 추천 정보 가져오기
-    voter_information = question_crud.get_voter_information(db, current_user.id, question_id)
+    voter_information = question_crud.get_question_voter(db, current_user.id, question_id)
     
     # 추천 여부 판단해서 추천 or 추천취소
     if not voter_information:
