@@ -73,7 +73,7 @@ def question_unvote(db: Session, question: Question, user: User):
 
 
 # 추천 정보 가져오기
-def get_voter_information(db: Session, user_id: int, question_id: int):
+def get_question_voter(db: Session, user_id: int, question_id: int):
     voter_information = db.query(question_voter).filter(
         question_voter.c.user_id == user_id, question_voter.c.question_id == question_id
     ).first()
