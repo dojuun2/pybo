@@ -1,7 +1,7 @@
 from datetime import datetime
 from domain.question import question_schema
 from sqlalchemy.orm import Session
-from models import Question, User
+from models import Question, User, question_voter
 
 
 # 질문 목록 조회
@@ -43,11 +43,13 @@ def question_create(
 
 
 # 질문 수정
-def question_update(db: Session, question: Question, question_update: question_schema.QuestionUpdate):
+def question_update(
+    db: Session, question: Question, question_update: question_schema.QuestionUpdate
+):
     question.subject = question_update.subject
     question.content = question_update.content
     question.modify_date = datetime.now()
-    
+
     db.add(question)
     db.commit()
 
@@ -68,3 +70,11 @@ def question_vote(db: Session, question: Question, user: User):
 def question_unvote(db: Session, question: Question, user: User):
     question.voter.remove(user)
     db.commit()
+
+
+# 추천 정보 가져오기
+def get_voter_information(db: Session, user_id: int, question_id: int):
+    voter_information = db.query(question_voter).filter(
+        question_voter.c.user_id == user_id, question_voter.c.question_id == question_id
+    ).first()
+    return voter_information

@@ -88,8 +88,8 @@ def question_delete(
 @router.post("/vote/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
 def question_vote(
     question_id: int,
-    db: Session = Depends(get_db), 
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     # 추천할 질문 가져오기
     question = question_crud.question_detail(db, question_id=question_id)
@@ -97,24 +97,14 @@ def question_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
         )
-        
-    # 질문 추천
-    question_crud.question_vote(db, question, current_user)
-
-
-# 질문 추천취소 api
-@router.delete("/unvote/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
-def question_vote(
-    question_id: int,
-    db: Session = Depends(get_db), 
-    current_user: User = Depends(get_current_user)
-):
-    # 추천 취소할 질문 가져오기
-    question = question_crud.question_detail(db, question_id=question_id)
-    if not question:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
-        )
-        
-    # 추천취소
-    question_crud.question_unvote(db, question, current_user)
+    
+    # 가져온 질문에 대한 추천 정보 가져오기
+    voter_information = question_crud.get_voter_information(db, current_user.id, question_id)
+    
+    # 추천 여부 판단해서 추천 or 추천취소
+    if not voter_information:
+        # 질문 추천
+        question_crud.question_vote(db, question, current_user)
+    else:
+        # 질문 추천취소
+        question_crud.question_unvote(db, question, current_user)

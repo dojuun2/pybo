@@ -10,17 +10,21 @@
     let question_id = params.question_id
     let question = {answers:[], voter:[], content: ""}
     let content = ""
-    let is_question_voted = false     // 사용자의 추천여부를 판단해줄 변수
+    let is_question_voted = false     // 사용자의 질문 추천여부를 판단해줄 변수
+    let is_answer_voted = false     // 사용자의 답변 추천여부를 판단해줄 변수
     let error = {detail:[]}
 
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
             question = json
             
-            // 로그인한 사용자가 추천을 한 게시물일 경우 is_question_voted true로 변경
-            if (question.voter.some(item => item.username === $username)) {
-                is_question_voted = true
-            }
+            // // 질문 추천여부 판단
+            // is_question_voted = check_voted(question)
+
+            // // 답변 추천여부 판단
+            // question.answers.some(answer => {
+            //     is_answer_voted = check_voted(answer)
+            // })
         })
     }
 
@@ -80,35 +84,15 @@
 
     // 질문 추천
     function vote_question(question_id) {
-        let url = ""
-
-        if(!is_question_voted) {
-            // 추천을 하지 않은 게시물인 경우
-            url = "/api/question/vote/" + question_id
-
-            fastapi("post", url, {}, 
-                (json) => {
-                    get_question()
-                    is_question_voted = false
-                },
-                (json_error) => {
-                    error = json_error
-                }
-            )
-        } else {
-            // 추천을 한 게시물인 경우
-            url = "/api/question/unvote/" + question_id
-
-            fastapi("delete", url, {}, 
-                (json) => {
-                    get_question()
-                    is_question_voted = false
-                },
-                (json_error) => {
-                    error = json_error
-                }
-            )
-        }
+        let url = "/api/question/vote/" + question_id
+        fastapi("post", url, {}, 
+            (json) => {
+                get_question()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
     }
 
     // 답변 추천
@@ -118,11 +102,23 @@
         fastapi("post", url, {}, 
             (json) => {
                 get_question()
+                is_answer_voted = false
             },
             (json_error) => {
                 error = json_error
             }
         )
+    }
+
+    // 질문, 답변 추천여부 판단 함수
+    function check_voted(post) {
+        // 추천을 한 게시물이면 true 반환
+        if (post.voter.some(voter => voter.username === $username)) {
+            return true
+        } 
+
+        // 그렇지 않은 경우엔 false 반환
+        return false
     }
 </script>
 
@@ -145,7 +141,7 @@
                 </div>
             </div>
             <div class="my-3">
-                <button class="btn btn-sm {is_question_voted ? "btn-secondary" : "btn-outline-secondary"}" on:click={() => vote_question(question.id)}>
+                <button class="btn btn-sm {check_voted(question) ? "btn-secondary" : "btn-outline-secondary"}" on:click={() => vote_question(question.id)}>
                     추천
                     <span class="badge rounded-pill bg-success">{question.voter.length}</span>
                 </button>
@@ -178,7 +174,7 @@
                     </div>
                 </div>
                 <div class="my-3">
-                    <button class="btn btn-sm btn-outline-secondary" on:click={() => vote_answer(answer.id)}>
+                    <button class="btn btn-sm {check_voted(answer) ? "btn-secondary" : "btn-outline-secondary"}" on:click={() => vote_answer(answer.id)}>
                         추천
                         <span class="badge rounded-pill bg-success">{answer.voter.length}</span>
                     </button>
