@@ -10,8 +10,6 @@
     let question_id = params.question_id
     let question = {answers:[], voter:[], content: ""}
     let content = ""
-    let is_question_voted = false     // 사용자의 질문 추천여부를 판단해줄 변수
-    let is_answer_voted = false     // 사용자의 답변 추천여부를 판단해줄 변수
     let error = {detail:[]}
 
     function get_question() {
@@ -94,7 +92,6 @@
         fastapi("post", url, {}, 
             (json) => {
                 get_question()
-                is_answer_voted = false
             },
             (json_error) => {
                 error = json_error
