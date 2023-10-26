@@ -17,14 +17,6 @@
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
             question = json
-            
-            // // 질문 추천여부 판단
-            // is_question_voted = check_voted(question)
-
-            // // 답변 추천여부 판단
-            // question.answers.some(answer => {
-            //     is_answer_voted = check_voted(answer)
-            // })
         })
     }
 
