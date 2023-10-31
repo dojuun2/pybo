@@ -1,12 +1,12 @@
 <script>
     import { link } from "svelte-spa-router";
-    import { page, access_token, username, is_login } from "../lib/store"
+    import { page, access_token, username, is_login, keyword } from "../lib/store"
 </script>
 
 <!-- 내비게이션 바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container-fluid">
-        <a use:link class="navbar-brand" href="/" on:click={() => {$page = 0}}>Pybo</a>
+        <a use:link class="navbar-brand" href="/" on:click={() => {$page = 0, $keyword = ""}}>Pybo</a>
         <button
             class="navbar-toggler"
             type="button"

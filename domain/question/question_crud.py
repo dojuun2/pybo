@@ -1,11 +1,11 @@
 from datetime import datetime
 from domain.question import question_schema
 from sqlalchemy.orm import Session
-from models import Question, User, question_voter
+from models import Answer, Question, User, question_voter
 
 
 # 질문 목록 조회
-def question_list(db: Session, skip: int = 0, limit: int = 10):
+def question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str = ""):
     """
     Args:
         - skip: 조회한 데이터의 시작 위치
@@ -14,10 +14,31 @@ def question_list(db: Session, skip: int = 0, limit: int = 10):
     Returns:
         total, question_list
     """
-    question_list_query = db.query(Question).order_by(Question.id.desc())  # 쿼리문
-    total = question_list_query.count()  # 전체 건수
+    question_list = db.query(Question)      # 쿼리문
 
-    question_list = question_list_query.offset(skip).limit(limit).all()  # 페이징 처리된 질문 목록
+    # 검색을 했는지
+    if keyword:
+        search = "%%{}%%".format(keyword)
+        sub_query = (
+            db.query(Answer.question_id, Answer.content, User.username)
+            .outerjoin(User, Answer.user_id == User.id)
+            .subquery()
+            # SELECT answer.question_id, answer.content, "user".username FROM answer LEFT OUTER JOIN "user" ON answer.user_id = "user".id
+        )
+        question_list = (
+            question_list.outerjoin(User)
+            .outerjoin(sub_query, sub_query.c.question_id == Question.id)
+            .filter(
+                Question.subject.ilike(search)              # 질문 제목
+                | Question.content.ilike(search)            # 질문 내용
+                | User.username.ilike(search)               # 질문 작성자
+                | sub_query.c.content.ilike(search)         # 답변 내용
+                | sub_query.c.username.ilike(search)    # 답변 작성자
+            )
+        )
+
+    total = question_list.count()  # 전체 건수
+    question_list = question_list.order_by(Question.id.desc()).offset(skip).limit(limit).distinct().all()  # 페이징 처리된 질문 목록
 
     return total, question_list
 
@@ -74,7 +95,12 @@ def question_unvote(db: Session, question: Question, user: User):
 
 # 추천 정보 가져오기
 def get_question_voter(db: Session, user_id: int, question_id: int):
-    voter_information = db.query(question_voter).filter(
-        question_voter.c.user_id == user_id, question_voter.c.question_id == question_id
-    ).first()
+    voter_information = (
+        db.query(question_voter)
+        .filter(
+            question_voter.c.user_id == user_id,
+            question_voter.c.question_id == question_id,
+        )
+        .first()
+    )
     return voter_information
