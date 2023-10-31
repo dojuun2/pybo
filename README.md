@@ -96,6 +96,9 @@ uvicorn main:app --reload
 # C:\projects\myapi\frontend>
 npm run dev
 
+# 프론트엔드 빌드 명령어
+npm run build
+
 
 # 모델 관련 명령어
 # 1. alembic 초기화 작업
