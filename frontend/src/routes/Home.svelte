@@ -77,6 +77,11 @@
     </li>
     <!-- 페이지 번호 -->
     {#each Array(total_page) as _, loop_page}
+      <!-- 
+          스벨트의 Array는 키, 값의 형태로 이루어짐
+          근데 위의 Array(total_page)의 요소는 undefined이므로 _ 변수로 처리해주고
+          값만 loop_page로 가져옴
+      -->
       {#if loop_page >= $page - 5 && loop_page <= $page + 5}
         <li class="page-item {loop_page === $page && 'active'}">
           <button on:click="{() => $page = loop_page}" class="page-link">{loop_page+1}</button>

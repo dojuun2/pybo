@@ -11,15 +11,26 @@
     let question = {answers:[], voter:[], content: ""}
     let content = ""
     let error = {detail:[]}
+    let page = 0    // 현재 페이지
+    let size = 10   // 보여질 답변 건수
+    let total = 0   // 전체 답변 건수
+     $: total_page = Math.ceil(total / size)   // 전체 페이지
 
-    function get_question() {
-        fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
-            question = json
+    function get_question(_page) {
+        let params = {
+            size: size * (_page + 1),
+        }
+
+        fastapi("get", "/api/question/detail/" + question_id, params, (json) => {
+            total = json.total
+            page = _page
+            question = json.question
         })
     }
 
-    get_question()
+    get_question(0)
 
+    // 답변 등록
     function post_answer(event) {
         event.preventDefault()  // submit이 눌릴경우 form이 자동으로 전동되는 것을 방지하기 위함
         
@@ -31,7 +42,7 @@
             (json) => {
                 content = ""
                 error = {detail:[]}
-                get_question()
+                get_question(page)
             }, 
             (err_json) => {
                 error = err_json
@@ -91,7 +102,7 @@
 
         fastapi("post", url, {}, 
             (json) => {
-                get_question()
+                get_question(page)
             },
             (json_error) => {
                 error = json_error
@@ -145,7 +156,7 @@
     <button class="btn btn-primary" on:click={() => {push("/")}}>목록으로</button>
 
     <!-- 답변 목록 -->
-    <h5 class="border-bottom my-3 py-2">{question.answers.length}개의 답변이 있습니다.</h5>
+    <h5 class="border-bottom my-3 py-2">{total}개의 답변이 있습니다.</h5>
     {#each question.answers as answer}
         <div class="card my-3">
             <div class="card-body">
@@ -176,6 +187,14 @@
         </div>
     {/each}
 
+    <!-- 답변 페이징 처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <li class="page-item {page + 1 >=  total_page && "disabled"}">
+            <button on:click={() => {get_question(page + 1)}} class="page-link">더보기 ({page+1}/{total_page})</button>
+        </li>
+    </ul>
+    <!-- 답변 페이징 처리 끝 -->
+    
     <!-- 답변 등록 -->
     <Error error={error} />
     <form method="post" class="my-3">

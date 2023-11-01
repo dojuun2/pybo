@@ -36,5 +36,7 @@ def get_db():
     db = SessionLocal()
     try:
         yield db
+    except Exception as ex:
+        print(f"get_db() 오류 발생: {ex}")
     finally:
         db.close()

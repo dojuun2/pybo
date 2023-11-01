@@ -13,16 +13,27 @@ router = APIRouter(prefix="/api/question")
 
 # 질문 목록 조회
 @router.get("/list", response_model=question_schema.QuestionList)
-def question_list(db: Session = Depends(get_db), page: int = 0, size: int = 10, keyword: str = ""):
-    total, question_list = question_crud.question_list(db, skip=page * size, limit=size, keyword=keyword)
+def question_list(
+    db: Session = Depends(get_db), page: int = 0, size: int = 10, keyword: str = ""
+):
+    total, question_list = question_crud.question_list(
+        db, skip=page * size, limit=size, keyword=keyword
+    )
     return {"total": total, "question_list": question_list}
 
 
 # 질문 상세 조회
-@router.get("/detail/{question_id}", response_model=question_schema.Question)
-def question_detail(question_id: int, db: Session = Depends(get_db)):
-    question = question_crud.question_detail(db=db, question_id=question_id)
-    return question
+@router.get("/detail/{question_id}", response_model=question_schema.QuestionDetail)
+def question_detail(
+    question_id: int,
+    db: Session = Depends(get_db),
+    size: int = 10,
+):
+    total, question = question_crud.question_detail(
+        db=db, question_id=question_id, limit=size
+    )
+
+    return {"total": total, "question": question}  # {답변 건수, 답변 상세조회}
 
 
 # 질문 등록
@@ -97,10 +108,12 @@ def question_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
         )
-    
+
     # 가져온 질문에 대한 추천 정보 가져오기
-    voter_information = question_crud.get_question_voter(db, current_user.id, question_id)
-    
+    voter_information = question_crud.get_question_voter(
+        db, current_user.id, question_id
+    )
+
     # 추천 여부 판단해서 추천 or 추천취소
     if not voter_information:
         # 질문 추천

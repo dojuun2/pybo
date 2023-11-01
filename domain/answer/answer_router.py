@@ -19,7 +19,7 @@ def answer_create(
     current_user: User = Depends(get_current_user),
 ):
     # 답변에 대한 질문 가져오기
-    question = question_crud.question_detail(db, question_id)
+    question = question_crud.question_detail(db, question_id, method="answer_create")
 
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
