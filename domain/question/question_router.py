@@ -28,9 +28,10 @@ def question_detail(
     question_id: int,
     db: Session = Depends(get_db),
     size: int = 10,
+    sort_order: str = "date"
 ):
     total, question = question_crud.question_detail(
-        db=db, question_id=question_id, limit=size
+        db=db, question_id=question_id, limit=size, sort_order=sort_order
     )
 
     return {"total": total, "question": question}  # {답변 건수, 답변 상세조회}

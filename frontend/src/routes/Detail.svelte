@@ -14,11 +14,13 @@
     let page = 0    // 현재 페이지
     let size = 10   // 보여질 답변 건수
     let total = 0   // 전체 답변 건수
-     $: total_page = Math.ceil(total / size)   // 전체 페이지
+    let sort_order = "date"; // 답변 정렬에 쓰일 변수(기본값 "date")
+    $: total_page = Math.ceil(total / size)   // 전체 페이지
 
     function get_question(_page) {
         let params = {
             size: size * (_page + 1),
+            sort_order: sort_order,
         }
 
         fastapi("get", "/api/question/detail/" + question_id, params, (json) => {
@@ -120,6 +122,13 @@
         // 그렇지 않은 경우엔 false 반환
         return false
     }
+
+
+    // 선택한 정렬 옵션의 변경 이벤트를 처리하는 함수
+    function handleSelectChange(event) {
+        sort_order = event.target.value;
+        get_question(page)
+    }
 </script>
 
 <div class="container my-3">
@@ -156,7 +165,14 @@
     <button class="btn btn-primary" on:click={() => {push("/")}}>목록으로</button>
 
     <!-- 답변 목록 -->
-    <h5 class="border-bottom my-3 py-2">{total}개의 답변이 있습니다.</h5>
+    <div class="border-bottom my-3 py-2 d-flex justify-content-between">
+        <h5>{total}개의 답변이 있습니다.</h5>
+        <!-- 답변 정렬 방법 -->
+        <select name="answerSort" id="answerSort" on:change={handleSelectChange}>
+            <option value="date">최신순</option>
+            <option value="vote">추천순</option>
+        </select>
+    </div>    
     {#each question.answers as answer}
         <div class="card my-3">
             <div class="card-body">

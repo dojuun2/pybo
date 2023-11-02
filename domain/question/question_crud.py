@@ -1,7 +1,8 @@
 from datetime import datetime
 from domain.question import question_schema
 from sqlalchemy.orm import Session
-from models import Answer, Question, User, question_voter
+from sqlalchemy import desc, func
+from models import Answer, Question, User, question_voter, answer_voter
 
 
 # 질문 목록 조회
@@ -50,15 +51,22 @@ def question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str = ""
 
 
 # 질문 상세 조회
-def question_detail(db: Session, question_id: int, limit: int = 10, method: str = ""):
+def question_detail(
+    db: Session,
+    question_id: int,
+    limit: int = 10,
+    method: str = "",
+    sort_order: str = "date",
+):
     """
     Args:
         - question_id (int): 질문 번호
-        - skip (int, optional): 조회한 데이터의 시작 인덱스
         - limit (int, optional): 시작 인덱스부터 가져올 데이터 건수
-    
+        - method (str, optional): 호출한 메소드
+        - sort_order (str, optional): 답변 정렬 방법
+
     Returns
-        - total (int): 답변 건수
+        - total (int, optional): 답변 건수
         - question (Question): 질문 select 값
     """
     # 질문 가져오기
@@ -67,19 +75,15 @@ def question_detail(db: Session, question_id: int, limit: int = 10, method: str 
     # 답변 등록 요청일 경우
     if method == "answer_create":
         return question
-    
-    # 질문 상세조회 요청일 경우
-    else:  
-        # 질문에 달린 답변 가져오기
-        answer_list = db.query(Answer).filter(Answer.question_id == question_id)
 
-        answer_total = answer_list.count()  # 답변 건수
-        answer_list = answer_list.order_by(Answer.id.desc()).limit(limit).all()    # 답변 목록 페이징 처리
-        
-        # 페이징 처리된 답변 목록 세팅
-        question.answers = answer_list
+    # 답변 등록 요청이 아닌 질문 상세조회 요청일 경우
+    # 답변 정렬
+    total, answers = sort_answer(db, question_id, limit, sort_order)
 
-        return answer_total, question   # (답변 건수, 정렬된 답변 목록, 답변) 반환
+    # 페이징 처리된 답변 목록 세팅
+    question.answers = answers
+
+    return total, question  # (답변 건수, 정렬된 답변 목록, 답변) 반환
 
 
 # 질문 등록
@@ -137,3 +141,38 @@ def get_question_voter(db: Session, user_id: int, question_id: int):
         .first()
     )
     return voter_information
+
+
+##### 내부 함수 #####
+# 답변 정렬 함수
+def sort_answer(db: Session, question_id: int, limit: int, sort_order: str):
+    # 정렬된 답변 담을 리스트
+    answers = []
+
+    # 최신순 정렬
+    if sort_order == "date":
+        # 답변 목록 가져오기
+        answer_list = db.query(Answer).filter(Answer.question_id == question_id)
+        total = answer_list.count()  # 답변 건수
+        answers = (
+            answer_list.order_by(Answer.id.desc()).limit(limit).all()
+        )  # 답변 목록 페이징 처리
+
+    # 추천순 정렬
+    elif sort_order == "vote":
+        answer_list = (
+            db.query(Answer, func.count(answer_voter.c.answer_id).label("voter_count"))
+            .outerjoin(answer_voter, Answer.id == answer_voter.c.answer_id)
+            .filter(Answer.question_id == question_id)
+            .group_by(Answer.id)
+        )
+        total = answer_list.count()  # 답변 건수
+        answer_list = (
+            answer_list.order_by(desc("voter_count"), Answer.id.desc())  # 추천순 정렬
+            .limit(limit)  # 페이징 처리
+            .all()
+        )
+        for answer in answer_list:
+            answers.append(answer[0])
+
+    return total, answers
