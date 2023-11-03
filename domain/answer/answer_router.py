@@ -19,7 +19,9 @@ def answer_create(
     current_user: User = Depends(get_current_user),
 ):
     # 답변에 대한 질문 가져오기
-    question = question_crud.question_detail(db, question_id, method="answer_create")
+    question = question_crud.question_detail(
+        db=db, question_id=question_id, method="answer_create"
+    )
 
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
@@ -92,7 +94,7 @@ def answer_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 답변입니다."
         )
-    
+
     # 추천여부 판단
     voter_information = answer_crud.get_answer_voter(db, current_user.id, answer_id)
     if not voter_information:

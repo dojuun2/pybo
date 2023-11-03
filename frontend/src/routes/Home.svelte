@@ -51,6 +51,7 @@
         <th style="width: 50%;">제목</th>
         <th>작성자</th>
         <th>작성일시</th>
+        <th>조회수</th>
       </tr>
     </thead>
     <tbody>
@@ -65,6 +66,7 @@
         </td>
         <td>{question.user ? question.user.username : ""}</td>
         <td>{moment(question.create_date).format("YYYY년 MM월 DD일 HH:mm")}</td>
+        <td>{question.hits}</td>
       </tr>
     {/each}
     </tbody>

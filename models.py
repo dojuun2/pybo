@@ -36,6 +36,7 @@ class Question(Base):
     # secondary 값으로 question_voter 테이블 객체를 지정해주면
     # Question 모델을 통해 추천인을 저장하면 실제 데이터는 question_voter 테이블에 저장되고
     # 저장된 추천인 정보는 Question 모델의 voter 속성을 통해 참조할 수 있다.
+    hits = Column(Integer, nullable=False, default=0)
 
 
 # 답변 모델

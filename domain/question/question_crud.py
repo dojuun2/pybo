@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from domain.question import question_schema
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func
@@ -77,12 +78,13 @@ def question_detail(
         return question
 
     # 답변 등록 요청이 아닌 질문 상세조회 요청일 경우
-    # 답변 정렬
+        
+    # 답변 페이징 처리 및 정렬
     total, answers = sort_answer(db, question_id, limit, sort_order)
 
     # 페이징 처리된 답변 목록 세팅
     question.answers = answers
-
+    
     return total, question  # (답변 건수, 정렬된 답변 목록, 답변) 반환
 
 
@@ -143,7 +145,14 @@ def get_question_voter(db: Session, user_id: int, question_id: int):
     return voter_information
 
 
-##### 내부 함수 #####
+# 질문 조회수 상승
+def up_hits(db: Session, question: Question):
+    question.hits += 1
+    db.add(question)
+    db.commit()
+
+
+############### 내부 함수 ###############
 # 답변 정렬 함수
 def sort_answer(db: Session, question_id: int, limit: int, sort_order: str):
     # 정렬된 답변 담을 리스트
@@ -176,3 +185,4 @@ def sort_answer(db: Session, question_id: int, limit: int, sort_order: str):
             answers.append(answer[0])
 
     return total, answers
+

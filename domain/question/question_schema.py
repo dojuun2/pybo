@@ -15,6 +15,7 @@ class Question(BaseModel):
     user: User | None   # 질문 작성자
     modify_date: datetime.datetime | None = None
     voter: list[User] = []  # 질문 추천인
+    hits: int = 0   # 질문 조회수
     
 
 # 질문 등록 입력 스키마

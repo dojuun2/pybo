@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy.orm import Session
 from database import get_db
 from domain.question import question_crud, question_schema
@@ -25,14 +25,29 @@ def question_list(
 # 질문 상세 조회
 @router.get("/detail/{question_id}", response_model=question_schema.QuestionDetail)
 def question_detail(
+    response: Response,
+    request: Request,
     question_id: int,
     db: Session = Depends(get_db),
     size: int = 10,
-    sort_order: str = "date"
+    sort_order: str = "date",
 ):
     total, question = question_crud.question_detail(
-        db=db, question_id=question_id, limit=size, sort_order=sort_order
+        db=db,
+        question_id=question_id,
+        limit=size,
+        sort_order=sort_order,
     )
+
+    # 조회수 상승
+    cookie = request.cookies.get(f"q{question_id}")
+    if not cookie:
+        response.set_cookie(
+            key=f"q{question_id}",
+            value=str(question_id),
+            max_age=60,     # 만료시간 1분
+        )
+        question_crud.up_hits(db, question)  # 질문 조회수 상승
 
     return {"total": total, "question": question}  # {답변 건수, 답변 상세조회}
 
