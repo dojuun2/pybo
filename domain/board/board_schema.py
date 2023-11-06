@@ -19,7 +19,7 @@ class Board(BaseModel):
     
 
 # 게시글 목록
-class BoardList(Board):
+class BoardList(BaseModel):
     total: int = 0
     board_list: list[Board] = []
 

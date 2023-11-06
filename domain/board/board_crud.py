@@ -15,3 +15,14 @@ def create_board(board_create: board_schema.BoardCreate, db: Session, user: User
     )
     db.add(db_board)
     db.commit()
+
+
+# 게시글 목록 조회
+def get_board_list(db: Session, skip: int, limit: int):
+    # 게시글 목록 조회
+    board_list = db.query(Board)
+    
+    total = board_list.count()  # 전체 게시물 수
+    board_list = board_list.order_by(Board.id.desc()).limit(limit).offset(skip).all()   # 페이징 처리
+    
+    return total, board_list
