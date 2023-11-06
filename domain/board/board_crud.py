@@ -26,3 +26,9 @@ def get_board_list(db: Session, skip: int, limit: int):
     board_list = board_list.order_by(Board.id.desc()).limit(limit).offset(skip).all()   # 페이징 처리
     
     return total, board_list
+
+
+# 게시글 상세조회
+def get_board_detail(board_id: int, db: Session):
+    board_detail = db.query(Board).get(board_id)
+    return board_detail

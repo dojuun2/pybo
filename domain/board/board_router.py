@@ -24,8 +24,14 @@ def create_board(
 # 게시글 목록 api
 @router.get("/list", response_model=board_schema.BoardList)
 def get_board_list(db: Session = Depends(get_db), page: int = 0, size: int = 10, ):
-    print("자유게시판 글목록 조회 api 호출")
     total, board_list = board_crud.get_board_list(db, skip=page * size, limit=size)
     
     return {"total": total, "board_list": board_list}
+
+
+# 게시글 상세조회 api
+@router.get("/detail/{board_id}", response_model=board_schema.Board)
+def get_board_detail(board_id: int, db: Session = Depends(get_db)):
+    board_detail = board_crud.get_board_detail(board_id=board_id, db=db)
     
+    return board_detail
