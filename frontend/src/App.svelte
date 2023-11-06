@@ -7,7 +7,9 @@
   import UserLogin from './routes/UserLogin.svelte'
   import QuestionModify from './routes/QuestionModify.svelte'
   import AnswerModify from './routes/AnswerModify.svelte'
+  import Board from './routes/Board.svelte'
   import Navigation from './components/Navigation.svelte';
+  import SideBar from './components/SideBar.svelte';
 
   const routes = {
     '/': Home,
@@ -17,8 +19,12 @@
     '/user-login': UserLogin,
     '/question-modify/:question_id': QuestionModify,
     '/answer-modify/:answer_id': AnswerModify,
+    '/board': Board,
   }
 </script>
 
 <Navigation />
-<Router {routes}/>
+<div class="d-flex">
+  <SideBar />
+  <Router {routes} />
+</div>
