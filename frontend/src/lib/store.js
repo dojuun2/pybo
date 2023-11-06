@@ -20,3 +20,4 @@ export const keyword = persist_storage("keyword", 0)
 export const access_token = persist_storage("access_token", "")
 export const username = persist_storage("username", "")
 export const is_login = persist_storage("is_login", false)   // 로그인 여부를 체크할 변수
+export const category = persist_storage("category", "home")  // 카테고리

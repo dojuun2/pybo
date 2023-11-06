@@ -6,6 +6,7 @@ from starlette.staticfiles import StaticFiles
 from domain.question import question_router     # 질문 라우터
 from domain.answer import answer_router     # 답변 라우터
 from domain.user import user_router     # 회원 라우터
+from domain.board import board_router     # 자유게시판 라우터
 
 app = FastAPI()
 
@@ -27,6 +28,7 @@ app.add_middleware(
 app.include_router(question_router.router)
 app.include_router(answer_router.router)
 app.include_router(user_router.router)
+app.include_router(board_router.router)
 app.mount("/assets", StaticFiles(directory="frontend/dist/assets")) # frontend/dist/assets 디렉터리를 /assets 경로로 매핑할 수 있도록 하는 설정
 
 
