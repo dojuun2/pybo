@@ -26,6 +26,13 @@ board_voter = Table(
     Column("board_id", Integer, ForeignKey("board.id"), primary_key=True)
 )
 
+comment_voter = Table(
+    "comment_voter",     # 테이블명
+    Base.metadata,
+    Column("user_id", Integer, ForeignKey("user.id"), primary_key=True),
+    Column("comment_id", Integer, ForeignKey("comment.id"), primary_key=True)
+)
+
 
 # 질문 모델
 class Question(Base):
@@ -86,9 +93,20 @@ class Board(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="board_users")
     modify_date = Column(DateTime, nullable=True)
-    voter = relationship("User", secondary=board_voter, backref="board_voters")   # 질문에 대한 추천인
-    # secondary 속성
-    # secondary 값으로 question_voter 테이블 객체를 지정해주면
-    # Question 모델을 통해 추천인을 저장하면 실제 데이터는 question_voter 테이블에 저장되고
-    # 저장된 추천인 정보는 Question 모델의 voter 속성을 통해 참조할 수 있다.
+    voter = relationship("User", secondary=board_voter, backref="board_voters")
     hits = Column(Integer, nullable=False, default=0)
+
+
+# 게시글 댓글 모델
+class Comment(Base):
+    __tablename__ = "comment"
+
+    id = Column(Integer, primary_key=True)
+    content = Column(Text, nullable=False)
+    create_date = Column(DateTime, nullable=False)
+    board_id = Column(Integer, ForeignKey("board.id"))
+    board = relationship("Board", backref="comments")
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
+    user = relationship("User", backref="comment_users")
+    modify_date = Column(DateTime, nullable=True)
+    voter = relationship("User", secondary=comment_voter, backref="comment_voters")

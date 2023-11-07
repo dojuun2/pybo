@@ -29,6 +29,6 @@ def get_board_list(db: Session, skip: int, limit: int):
 
 
 # 게시글 상세조회
-def get_board_detail(board_id: int, db: Session):
+def get_board_detail(db: Session, board_id: int):
     board_detail = db.query(Board).get(board_id)
     return board_detail
