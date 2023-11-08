@@ -54,8 +54,12 @@ def update_board(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 게시글입니다."
         )
+    if current_user.id != board.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다."
+        )
 
     # 게시글 수정
     board_crud.update_board(
-        db=db, board=board, board_update=board_update, user=current_user
+        db=db, board=board, board_update=board_update
     )

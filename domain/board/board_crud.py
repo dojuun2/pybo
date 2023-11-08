@@ -37,9 +37,7 @@ def get_board_detail(db: Session, board_id: int):
 
 
 # 게시글 수정
-def update_board(
-    db: Session, board: Board, board_update: board_schema.BoardUpdate, user: User
-):
+def update_board(db: Session, board: Board, board_update: board_schema.BoardUpdate):
     board.subject = board_update.subject
     board.content = board_update.content
     db.add(board)
