@@ -63,3 +63,26 @@ def update_board(
     board_crud.update_board(
         db=db, board=board, board_update=board_update
     )
+
+
+# 게시글 삭제 api
+@router.delete("/delete/{board_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_board(
+    board_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 삭제할 게시글 가져오기
+    board = board_crud.get_board_detail(db, board_id)
+    if not board:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 게시글입니다."
+        )
+    if current_user.id != board.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다."
+        )
+        
+    # 게시글 삭제
+    board_crud.delete_board(db, board=board)
+    

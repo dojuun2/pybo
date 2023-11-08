@@ -1,10 +1,10 @@
 <script>
     import moment from "moment/min/moment-with-locales"
-    import { link } from "svelte-spa-router";
+    import { link, push } from "svelte-spa-router";
     import fastapi from "../lib/api";
 
     export let params = {}
-    let board_id = params.board_id
+    const board_id = params.board_id
     let board = {comments:[]}
 
     // 게시글 가져오기
@@ -14,12 +14,27 @@
         fastapi("get", url, {}, 
             (json) => {
                 board = json
-                console.log(board.comments);
             }, 
         )
     }
 
     get_board_detail()
+
+    // 게시글 삭제
+    function delete_board() {
+        if (confirm("삭제하시겠습니까?")) {
+            let url = "/api/board/delete/" + board_id
+    
+            fastapi("delete", url, {}, 
+                (json) => {
+                    push("/board")
+                }, 
+                (json_error) => {
+                    error = json_error
+                }
+            )
+        }
+    }
 
 </script>
 
@@ -47,7 +62,7 @@
                     <span class="badge rounded-pill bg-success">0</span>
                 </button>
                     <a use:link href="/board-modify/{board.id}" class="btn btn-sm btn-outline-secondary">수정</a>
-                    <button class="btn btn-sm btn-outline-secondary" >삭제</button>
+                    <button class="btn btn-sm btn-outline-secondary" on:click={delete_board}>삭제</button>
             </div>
         </div>
     </div>

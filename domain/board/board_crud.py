@@ -42,3 +42,9 @@ def update_board(db: Session, board: Board, board_update: board_schema.BoardUpda
     board.content = board_update.content
     db.add(board)
     db.commit()
+
+
+# 게시글 삭제
+def delete_board(db: Session, board: Board):
+    db.delete(board)
+    db.commit()
