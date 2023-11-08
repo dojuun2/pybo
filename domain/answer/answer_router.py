@@ -48,7 +48,7 @@ def answer_update(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 답변입니다."
         )
-    if not current_user:
+    if current_user.id != answer.user.id:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다."
         )
