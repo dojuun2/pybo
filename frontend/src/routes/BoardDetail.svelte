@@ -46,7 +46,7 @@
                     추천
                     <span class="badge rounded-pill bg-success">0</span>
                 </button>
-                    <a use:link href="/question-modify/" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a use:link href="/board-modify/{board.id}" class="btn btn-sm btn-outline-secondary">수정</a>
                     <button class="btn btn-sm btn-outline-secondary" >삭제</button>
             </div>
         </div>
@@ -78,7 +78,7 @@
                         추천
                         <span class="badge rounded-pill bg-success">0</span>
                     </button>
-                    <a use:link href="/answer-modify/" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a use:link href="/comment-modify/" class="btn btn-sm btn-outline-secondary">수정</a>
                     <button class="btn btn-sm btn-outline-secondary">삭제</button>
                 </div>
             </div>

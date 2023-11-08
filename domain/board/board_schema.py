@@ -6,7 +6,7 @@ from domain.comment.comment_schema import Comment
 
 
 
-# 출력 스키마
+######### 출력 스키마 #########
 # 게시글
 class Board(BaseModel):
     id: int
@@ -26,7 +26,7 @@ class BoardList(BaseModel):
     board_list: list[Board] = []
 
 
-# 입력 스키마
+######### 입력 스키마 #########
 # 게시글 등록
 class BoardCreate(BaseModel):
     subject: str
@@ -37,3 +37,8 @@ class BoardCreate(BaseModel):
         if not v or not v.strip():
             raise ValueError("빈 값은 허용되지 않습니다.")
         return v
+
+
+# 게시글 수정
+class BoardUpdate(BoardCreate):
+    id: int

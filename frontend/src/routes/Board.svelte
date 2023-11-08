@@ -8,6 +8,7 @@
     let total = 0
     $: total_page = Math.ceil(total / size)
 
+    // 게시글 목록 가져오기
     function get_board_list() {
         let url = "/api/board/list"
         let params = {
@@ -58,6 +59,9 @@
                     <td>{board.id}</td>
                     <td class="text-start">
                         <a use:link href="/board-detail/{board.id}">{board.subject}</a>
+                        {#if board.comments.length > 0}
+                            <span class="text-danger small mx-2">{board.comments.length}</span>
+                        {/if}
                     </td>
                     <td>{board.user.username}</td>
                     <td>{board.create_date}</td>

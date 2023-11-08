@@ -1,7 +1,7 @@
 <script>
     import { push } from "svelte-spa-router";
     import fastapi from "../lib/api";
-  import Error from "../components/Error.svelte";
+    import Error from "../components/Error.svelte";
 
     export let params = {}
     const question_id = params.question_id
@@ -54,11 +54,11 @@
     <form method="post" class="my-3">
         <div class="mb-3">
             <label for="subject">제목</label>
-            <input type="text" class="form-control" bind:value={subject}>
+            <input type="text" class="form-control" id="subject" bind:value={subject}>
         </div> 
         <div class="mb-3">
             <label for="content">내용</label>
-            <textarea class="form-control" rows="10" bind:value={content}></textarea>
+            <textarea class="form-control" id="content" rows="10" bind:value={content}></textarea>
         </div>
         <button class="btn btn-primary" on:click={update_question}>수정하기</button>
         <button class="btn btn-danger" on:click={(event) => {

@@ -9,6 +9,7 @@
   import AnswerModify from './routes/AnswerModify.svelte'
   import Board from './routes/Board.svelte'
   import BoardDetail from './routes/BoardDetail.svelte'
+  import BoardModify from './routes/BoardModify.svelte'
 
   import Navigation from './components/Navigation.svelte';
   import SideBar from './components/SideBar.svelte';
@@ -23,6 +24,7 @@
     '/answer-modify/:answer_id': AnswerModify,
     '/board': Board,
     '/board-detail/:board_id': BoardDetail,
+    '/board-modify/:board_id': BoardModify,
   }
 </script>
 

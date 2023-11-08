@@ -21,10 +21,12 @@ def create_board(board_create: board_schema.BoardCreate, db: Session, user: User
 def get_board_list(db: Session, skip: int, limit: int):
     # 게시글 목록 조회
     board_list = db.query(Board)
-    
+
     total = board_list.count()  # 전체 게시물 수
-    board_list = board_list.order_by(Board.id.desc()).limit(limit).offset(skip).all()   # 페이징 처리
-    
+    board_list = (
+        board_list.order_by(Board.id.desc()).limit(limit).offset(skip).all()
+    )  # 페이징 처리
+
     return total, board_list
 
 
@@ -32,3 +34,13 @@ def get_board_list(db: Session, skip: int, limit: int):
 def get_board_detail(db: Session, board_id: int):
     board_detail = db.query(Board).get(board_id)
     return board_detail
+
+
+# 게시글 수정
+def update_board(
+    db: Session, board: Board, board_update: board_schema.BoardUpdate, user: User
+):
+    board.subject = board_update.subject
+    board.content = board_update.content
+    db.add(board)
+    db.commit()
