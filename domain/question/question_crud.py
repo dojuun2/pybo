@@ -56,14 +56,12 @@ def question_detail(
     db: Session,
     question_id: int,
     limit: int = 10,
-    method: str = "",
     sort_order: str = "date",
 ):
     """
     Args:
         - question_id (int): 질문 번호
         - limit (int, optional): 시작 인덱스부터 가져올 데이터 건수
-        - method (str, optional): 호출한 메소드
         - sort_order (str, optional): 답변 정렬 방법
 
     Returns
@@ -73,19 +71,19 @@ def question_detail(
     # 질문 가져오기
     question = db.query(Question).get(question_id)
 
-    # 답변 등록 요청일 경우
-    if method == "answer_create":
-        return question
-
-    # 답변 등록 요청이 아닌 질문 상세조회 요청일 경우
-        
     # 답변 페이징 처리 및 정렬
     total, answers = sort_answer(db, question_id, limit, sort_order)
 
     # 페이징 처리된 답변 목록 세팅
     question.answers = answers
-    
+
     return total, question  # (답변 건수, 정렬된 답변 목록, 답변) 반환
+
+
+# 질문 가져오기
+def get_question(db: Session, question_id: int):
+    question = db.query(Question).get(question_id)
+    return question
 
 
 # 질문 등록
@@ -185,4 +183,3 @@ def sort_answer(db: Session, question_id: int, limit: int, sort_order: str):
             answers.append(answer[0])
 
     return total, answers
-

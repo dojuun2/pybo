@@ -76,7 +76,7 @@
             
             fastapi("delete", url, {}, 
                 (json) => {
-                    get_question()
+                    get_question(page)
                 }, 
                 (json_error) => {
                     error = json_error
@@ -90,7 +90,7 @@
         let url = "/api/question/vote/" + question_id
         fastapi("post", url, {}, 
             (json) => {
-                get_question()
+                get_question(page)
             },
             (json_error) => {
                 error = json_error

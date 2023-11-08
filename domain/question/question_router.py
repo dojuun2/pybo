@@ -71,7 +71,7 @@ def question_update(
     current_user: User = Depends(get_current_user),
 ):
     # 수정할 질문 가져오기
-    question = question_crud.question_detail(db, question_id=question_update.id)
+    question = question_crud.get_question(db, question_id=question_update.id)
 
     # 질문이 없는 경우
     if not question:
@@ -97,7 +97,7 @@ def question_delete(
     current_user: User = Depends(get_current_user),
 ):
     # 삭제할 질문 가져오기
-    question = question_crud.question_detail(db, question_id=question_id)
+    question = question_crud.get_question(db, question_id=question_id)
     if not question:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."
@@ -119,7 +119,7 @@ def question_vote(
     current_user: User = Depends(get_current_user),
 ):
     # 추천할 질문 가져오기
-    question = question_crud.question_detail(db, question_id=question_id)
+    question = question_crud.get_question(db, question_id=question_id)
     if not question:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 질문입니다."

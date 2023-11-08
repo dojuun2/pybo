@@ -12,8 +12,8 @@
     
     // 수정할 질문 정보 가져오기
     fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
-        subject = json.subject
-        content = json.content
+        subject = json.question.subject
+        content = json.question.content
     })
 
     // 질문 수정 함수
@@ -61,11 +61,6 @@
             <textarea class="form-control" id="content" rows="10" bind:value={content}></textarea>
         </div>
         <button class="btn btn-primary" on:click={update_question}>수정하기</button>
-        <button class="btn btn-danger" on:click={(event) => {
-            event.preventDefault()
-            if (confirm("수정을 취소하시겠습니까?")) {
-                push("/detail/" + question_id)
-            }
-        }}>취소하기</button>
+        <button class="btn btn-danger" on:click={cancel}>취소하기</button>
     </form>
 </div>
