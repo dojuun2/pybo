@@ -31,7 +31,7 @@
   <h2 class="border-bottom py-2">자유게시판</h2>
   <div class="row my-3">
       <div class="col-6">
-        <a use:link href="/question-create" class="btn btn-primary">게시글 작성하기</a>
+        <a use:link href="/board-create" class="btn btn-primary">게시글 작성하기</a>
       </div>
       <div class="col-6">
         <div class="input-group">
