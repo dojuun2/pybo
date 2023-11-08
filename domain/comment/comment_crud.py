@@ -17,3 +17,19 @@ def create_comment(
     )
     db.add(db_comment)
     db.commit()
+
+
+# 댓글 상세조회
+def get_comment_detail(db: Session, comment_id: id):
+    db_comment = db.query(Comment).get(comment_id)
+    return db_comment
+
+
+# 댓글 수정
+def update_comment(
+    db: Session, comment: Comment, comment_update: comment_schema.CommentUpdate
+):
+    comment.content = comment_update.content
+    comment.modify_date = datetime.now()
+    db.add(comment)
+    db.commit()

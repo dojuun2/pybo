@@ -24,3 +24,8 @@ class Comment(BaseModel):
     modify_date: datetime | None = None
     board_id: int
     voter: list[User] = []
+   
+
+# 댓글 수정
+class CommentUpdate(CommentCreate):
+    id: int

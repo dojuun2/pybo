@@ -2,8 +2,8 @@
     import moment from "moment/min/moment-with-locales"
     import { link, push } from "svelte-spa-router";
     import fastapi from "../lib/api";
-  import { is_login } from "../lib/store";
-  import Error from "../components/Error.svelte";
+    import { is_login } from "../lib/store";
+    import Error from "../components/Error.svelte";
 
     export let params = {}
     const board_id = params.board_id
@@ -41,7 +41,7 @@
         }
     }
 
-    // 답변 등록
+    // 댓글 등록
     function post_comment(event) {
         event.preventDefault()  // submit이 눌릴경우 form이 자동으로 전동되는 것을 방지하기 위함
         
@@ -60,6 +60,7 @@
             }
         )
     }
+
 </script>
 
 <div class="container my-3">
@@ -117,7 +118,7 @@
                         추천
                         <span class="badge rounded-pill bg-success">0</span>
                     </button>
-                    <a use:link href="/comment-modify/" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a use:link href="/comment-modify/{comment.id}" class="btn btn-sm btn-outline-secondary">수정</a>
                     <button class="btn btn-sm btn-outline-secondary">삭제</button>
                 </div>
             </div>
@@ -130,6 +131,6 @@
         <div class="mb-3">
             <textarea rows="10" bind:value={content} class="form-control" disabled={$is_login ? "" : "disabled"} />
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_comment}" disabled={$is_login ? "" : "disabled"} />
+        <input type="submit" value="댓글등록" class="btn btn-primary" on:click="{post_comment}" disabled={$is_login ? "" : "disabled"} />
     </form>
 </div>

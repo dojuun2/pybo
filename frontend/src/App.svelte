@@ -11,6 +11,7 @@
   import BoardDetail from './routes/BoardDetail.svelte'
   import BoardModify from './routes/BoardModify.svelte'
   import BoardCreate from './routes/BoardCreate.svelte'
+  import CommentModify from './routes/CommentModify.svelte'
 
   import Navigation from './components/Navigation.svelte';
   import SideBar from './components/SideBar.svelte';
@@ -27,6 +28,7 @@
     '/board-detail/:board_id': BoardDetail,
     '/board-modify/:board_id': BoardModify,
     '/board-create': BoardCreate,
+    '/comment-modify/:comment_id': CommentModify,
   }
 </script>
 

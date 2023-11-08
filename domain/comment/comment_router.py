@@ -18,7 +18,7 @@ def create_comment(
     board_id: int,
     comment_create: comment_schema.CommentCreate,
     db: Session = Depends(get_db),
-    user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
 ):
     # 게시글 가져오기
     board = board_crud.get_board_detail(db=db, board_id=board_id)
@@ -27,5 +27,32 @@ def create_comment(
 
     # 댓글 등록
     comment_crud.create_comment(
-        db=db, comment_create=comment_create, board=board, user=user
+        db=db, comment_create=comment_create, board=board, user=current_user
     )
+
+
+# 댓글 상세조회 api
+@router.get("/detail/{comment_id}", response_model=comment_schema.Comment)
+def get_comment_detail(comment_id: int, db: Session = Depends(get_db)):
+    comment = comment_crud.get_comment_detail(db, comment_id=comment_id)
+    return comment
+
+
+# 댓글 수정 api
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+def update_comment(
+    comment_update: comment_schema.CommentUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 수정할 댓글 가져오기
+    comment = comment_crud.get_comment_detail(db, comment_id=comment_update.id)
+    if not comment:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 댓글입니다.")
+    if current_user.id != comment.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다."
+        )
+       
+    # 댓글 수정하기
+    comment_crud.update_comment(db, comment=comment, comment_update=comment_update)
