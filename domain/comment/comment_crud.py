@@ -33,3 +33,9 @@ def update_comment(
     comment.modify_date = datetime.now()
     db.add(comment)
     db.commit()
+
+
+# 댓글 삭제
+def delete_comment(db: Session, comment: Comment):
+    db.delete(comment)
+    db.commit()

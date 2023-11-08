@@ -22,7 +22,6 @@
             }, 
         )
     }
-
     get_board_detail()
 
     // 게시글 삭제
@@ -59,6 +58,22 @@
                 error = err_json
             }
         )
+    }
+
+    // 댓글 삭제
+    function delete_comment(comment_id){
+        if (confirm("댓글을 삭제하시겠습니까?")) {
+            let url = "/api/comment/delete/" + comment_id
+    
+            fastapi("delete", url, {}, 
+                (json) => {
+                    get_board_detail()
+                },
+                (json_error) => {
+                    error = json_error
+                }
+            )
+        }
     }
 
 </script>
@@ -119,7 +134,7 @@
                         <span class="badge rounded-pill bg-success">0</span>
                     </button>
                     <a use:link href="/comment-modify/{comment.id}" class="btn btn-sm btn-outline-secondary">수정</a>
-                    <button class="btn btn-sm btn-outline-secondary">삭제</button>
+                    <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_comment(comment.id)}>삭제</button>
                 </div>
             </div>
         </div>

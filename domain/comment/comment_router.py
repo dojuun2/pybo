@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import delete
 from sqlalchemy.orm import Session
 from starlette import status
 from domain.comment import comment_crud, comment_schema
@@ -48,11 +49,35 @@ def update_comment(
     # 수정할 댓글 가져오기
     comment = comment_crud.get_comment_detail(db, comment_id=comment_update.id)
     if not comment:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 댓글입니다.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 댓글입니다."
+        )
     if current_user.id != comment.user.id:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다."
         )
-       
+
     # 댓글 수정하기
     comment_crud.update_comment(db, comment=comment, comment_update=comment_update)
+
+
+# 댓글 삭제 api
+@router.delete("/delete/{comment_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_comment(
+    comment_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 삭제할 댓글 가져오기
+    comment = comment_crud.get_comment_detail(db, comment_id=comment_id)
+    if not comment:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 댓글입니다."
+        )
+    if current_user.id != comment.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다."
+        )
+    
+    # 댓글 삭제하기
+    comment_crud.delete_comment(db, comment=comment)
