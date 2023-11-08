@@ -48,7 +48,6 @@
             }, 
             (err_json) => {
                 error = err_json
-                console.log(error);
             }
         )
     }

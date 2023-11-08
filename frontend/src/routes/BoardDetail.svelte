@@ -2,10 +2,15 @@
     import moment from "moment/min/moment-with-locales"
     import { link, push } from "svelte-spa-router";
     import fastapi from "../lib/api";
+  import { is_login } from "../lib/store";
+  import Error from "../components/Error.svelte";
 
     export let params = {}
     const board_id = params.board_id
     let board = {comments:[]}
+    let content = ""
+    let error = {detail:[]}
+
 
     // 게시글 가져오기
     function get_board_detail() {
@@ -36,6 +41,25 @@
         }
     }
 
+    // 답변 등록
+    function post_comment(event) {
+        event.preventDefault()  // submit이 눌릴경우 form이 자동으로 전동되는 것을 방지하기 위함
+        
+        let url = "/api/comment/create/" + board_id
+        let params = {
+            content: content,
+        }
+        fastapi("post", url, params, 
+            (json) => {
+                content = ""
+                error = {detail:[]}
+                get_board_detail()
+            }, 
+            (err_json) => {
+                error = err_json
+            }
+        )
+    }
 </script>
 
 <div class="container my-3">
@@ -99,4 +123,13 @@
             </div>
         </div>
     {/each}
+
+    <!-- 댓글 등록 -->
+    <Error error={error} />
+    <form method="post" class="my-3">
+        <div class="mb-3">
+            <textarea rows="10" bind:value={content} class="form-control" disabled={$is_login ? "" : "disabled"} />
+        </div>
+        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_comment}" disabled={$is_login ? "" : "disabled"} />
+    </form>
 </div>
