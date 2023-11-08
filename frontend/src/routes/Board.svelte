@@ -27,7 +27,8 @@
 </script>
 
 <div class="container my-3">
-    <div class="row my-3">
+  <h2 class="border-bottom py-2">자유게시판</h2>
+  <div class="row my-3">
       <div class="col-6">
         <a use:link href="/question-create" class="btn btn-primary">게시글 작성하기</a>
       </div>
@@ -55,7 +56,9 @@
             {#each board_list as board}
                 <tr class="text-center">
                     <td>{board.id}</td>
-                    <td class="text-start">{board.subject}</td>
+                    <td class="text-start">
+                        <a use:link href="/board-detail/{board.id}">{board.subject}</a>
+                    </td>
                     <td>{board.user.username}</td>
                     <td>{board.create_date}</td>
                     <td>{board.hits}</td>
@@ -72,11 +75,13 @@
         </li>
         <!-- 페이지 번호 -->
         {#each Array(total_page) as _, loop_page}
-            <li class="page-item {loop_page === $board_page && 'active'}">
-                <button class="page-link" on:click={() => $board_page = loop_page}>
-                    {loop_page + 1}
-                </button>
-            </li>
+            {#if loop_page >= $board_page - 5 && loop_page <= $board_page + 5}
+                <li class="page-item {loop_page === $board_page && 'active'}">
+                    <button class="page-link" on:click={() => $board_page = loop_page}>
+                        {loop_page + 1}
+                    </button>
+                </li>
+            {/if}
         {/each}
         <!-- 다음 -->
         <li class="page-item {$board_page >= total_page - 1 && 'disabled'}">

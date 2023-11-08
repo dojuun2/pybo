@@ -31,6 +31,7 @@
 </script>
 
 <div class="container my-3">
+  <h2 class="border-bottom py-2">질문과 답변</h2>
   <div class="row my-3">
     <div class="col-6">
       <a use:link href="/question-create" class="btn btn-primary {$is_login ? "" : "disabled"}">질문 등록하기</a>

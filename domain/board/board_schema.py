@@ -2,6 +2,7 @@ import datetime
 from pydantic import BaseModel, validator
 
 from domain.user.user_schema import User
+from domain.comment.comment_schema import Comment
 
 
 
@@ -16,6 +17,7 @@ class Board(BaseModel):
     user: User | None  # 게시글 작성자
     voter: list[User] = []  # 게시글 추천인
     hits: int = 0
+    comments: list[Comment] = []     # 댓글
     
 
 # 게시글 목록

@@ -8,6 +8,8 @@
   import QuestionModify from './routes/QuestionModify.svelte'
   import AnswerModify from './routes/AnswerModify.svelte'
   import Board from './routes/Board.svelte'
+  import BoardDetail from './routes/BoardDetail.svelte'
+
   import Navigation from './components/Navigation.svelte';
   import SideBar from './components/SideBar.svelte';
 
@@ -20,6 +22,7 @@
     '/question-modify/:question_id': QuestionModify,
     '/answer-modify/:answer_id': AnswerModify,
     '/board': Board,
+    '/board-detail/:board_id': BoardDetail,
   }
 </script>
 
