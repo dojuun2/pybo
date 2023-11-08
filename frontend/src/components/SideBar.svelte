@@ -4,7 +4,7 @@
 </script>
 
 <!-- 사이드바 -->
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light my-3" style="width: 280px;">
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-white my-3" style="width: 280px;">
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
         <a use:link href="/" class="nav-link {$category === "home" && 'active'}" aria-current="page" on:click={() => {$category="home"}}>
