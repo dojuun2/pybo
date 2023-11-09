@@ -23,7 +23,7 @@ def question_list(
 
 
 # 질문 상세 조회
-@router.get("/detail/{question_id}", response_model=question_schema.QuestionDetail)
+@router.get("/{question_id}", response_model=question_schema.QuestionDetail)
 def question_detail(
     response: Response,
     request: Request,

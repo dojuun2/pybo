@@ -23,7 +23,7 @@
             sort_order: sort_order,
         }
 
-        fastapi("get", "/api/question/detail/" + question_id, params, (json) => {
+        fastapi("get", "/api/questions/" + question_id, params, (json) => {
             total = json.total
             page = _page
             question = json.question
