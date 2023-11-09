@@ -1,6 +1,7 @@
 <script>
     import { link } from "svelte-spa-router";
     import fastapi from "../lib/api";
+    import moment from "moment/min/moment-with-locales"
     import { board_page } from "../lib/store";
 
     let board_list = []
@@ -64,7 +65,7 @@
                         {/if}
                     </td>
                     <td>{board.user.username}</td>
-                    <td>{board.create_date}</td>
+                    <td>{moment(board.create_date).format("YYYY년 MM월 DD일 HH:mm")}</td>
                     <td>{board.hits}</td>
                 </tr>
             {/each}
