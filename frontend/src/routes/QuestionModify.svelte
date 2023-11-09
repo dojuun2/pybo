@@ -11,7 +11,7 @@
     let content = ""
     
     // 수정할 질문 정보 가져오기
-    fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
+    fastapi("get", "/api/questions/" + question_id, {}, (json) => {
         subject = json.question.subject
         content = json.question.content
     })
@@ -20,7 +20,7 @@
     function update_question(event) {
         event.preventDefault()
 
-        let url = "/api/question/update"
+        let url = "/api/questions"
         let params = {
             id: question_id,
             subject: subject,

@@ -64,7 +64,7 @@ def question_create(
 
 
 # 질문 수정
-@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+@router.put("", status_code=status.HTTP_204_NO_CONTENT)
 def question_update(
     question_update: question_schema.QuestionUpdate,
     db: Session = Depends(get_db),
