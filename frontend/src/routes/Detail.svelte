@@ -90,7 +90,7 @@
         let params = {
             question_id: question_id,
         }
-        
+
         fastapi("post", url, params, 
             (json) => {
                 get_question(page)
@@ -103,7 +103,7 @@
 
     // 질문 추천취소
     function unvote_question(question_id) {
-        let url = "/api/question/unvote/" + question_id
+        let url = "/api/questions/" + question_id + "/recommendations"
         fastapi("delete", url, {}, 
             (json) => {
                 get_question(page)

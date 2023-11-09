@@ -142,7 +142,7 @@ def question_vote(
 
 
 # 질문 추천 취소 api
-@router.delete("/unvote/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{question_id}/recommendations", status_code=status.HTTP_204_NO_CONTENT)
 def question_vote(
     question_id: int,
     db: Session = Depends(get_db),
