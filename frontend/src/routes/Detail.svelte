@@ -86,8 +86,12 @@
 
     // 질문 추천
     function vote_question(question_id) {
-        let url = "/api/question/vote/" + question_id
-        fastapi("post", url, {}, 
+        let url = "/api/questions/recommendations"
+        let params = {
+            question_id: question_id,
+        }
+        
+        fastapi("post", url, params, 
             (json) => {
                 get_question(page)
             },

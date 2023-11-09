@@ -112,12 +112,15 @@ def question_delete(
 
 
 # 질문 추천 api
-@router.post("/vote/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/recommendations", status_code=status.HTTP_204_NO_CONTENT)
 def question_vote(
-    question_id: int,
+    question_recommendation: question_schema.QuestionRecommendation,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    # 질문 번호
+    question_id = question_recommendation.question_id
+    
     # 추천할 질문 가져오기
     question = question_crud.get_question(db, question_id=question_id)
     if not question:
@@ -129,7 +132,7 @@ def question_vote(
     voter_information = question_crud.get_question_voter(
         db, current_user.id, question_id
     )
-    if not voter_information:
+    if voter_information:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 이미 존재합니다."
         )

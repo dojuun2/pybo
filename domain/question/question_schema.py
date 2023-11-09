@@ -45,3 +45,8 @@ class QuestionUpdate(QuestionCreate):
 class QuestionDetail(BaseModel):
     total: int = 0
     question: Question = None
+
+
+# 질문 추천 스키마
+class QuestionRecommendation(BaseModel):
+    question_id: int
