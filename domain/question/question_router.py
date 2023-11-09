@@ -53,7 +53,7 @@ def question_detail(
 
 
 # 질문 등록
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("", status_code=status.HTTP_204_NO_CONTENT)
 def question_create(
     question_create: question_schema.QuestionCreate,
     db: Session = Depends(get_db),
