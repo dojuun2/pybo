@@ -92,14 +92,41 @@ def answer_vote(
             status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 답변입니다."
         )
 
-    # 추천여부 판단
+    # 추천 정보 가져오기
+    voter_information = answer_crud.get_answer_voter(db, current_user.id, answer_id)
+    if voter_information:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 이미 존재합니다."
+        )
+        
+    # 답변 추천
+    answer_crud.answer_vote(db, answer, current_user)
+    
+
+
+# 답변 추천취소 api
+@router.post("/unvote/{answer_id}", status_code=status.HTTP_204_NO_CONTENT)
+def answer_vote(
+    answer_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 추천 취소할 답변 가져오기
+    answer = answer_crud.answer_detail(db, answer_id)
+    if not answer:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="존재하지 않는 답변입니다."
+        )
+
+    # 추천 정보 가져오기
     voter_information = answer_crud.get_answer_voter(db, current_user.id, answer_id)
     if not voter_information:
-        # 질문 추천
-        answer_crud.answer_vote(db, answer, current_user)
-    else:
-        # 질문 추천취소
-        answer_crud.answer_unvote(db, answer, current_user)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 존재하지 않습니다."
+        )
+    
+    # 답변 추천 취소
+    answer_crud.answer_unvote(db, answer, current_user)
 
 
 # # 답변 목록 조회 api

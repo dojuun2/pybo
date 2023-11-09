@@ -45,7 +45,7 @@ def question_detail(
         response.set_cookie(
             key=f"q{question_id}",
             value=str(question_id),
-            max_age=60,     # 만료시간 1분
+            max_age=60,  # 만료시간 1분
         )
         question_crud.up_hits(db, question)  # 질문 조회수 상승
 
@@ -160,6 +160,6 @@ def question_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 존재하지 않습니다."
         )
-        
+
     # 질문 추천취소
     question_crud.question_unvote(db, question, current_user)

@@ -124,6 +124,20 @@
         )
     }
 
+    // 답변 추천취소
+    function unvote_answer(answer_id) {
+        let url = "/api/answer/unvote/" + answer_id
+
+        fastapi("post", url, {}, 
+            (json) => {
+                get_question(page)
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }
+
     // 질문, 답변 추천여부 판단 함수
     function check_voted(post) {
         // 추천을 한 게시물이면 true 반환
@@ -207,7 +221,9 @@
                     </div>
                 </div>
                 <div class="my-3">
-                    <button class="btn btn-sm {check_voted(answer) ? "btn-secondary" : "btn-outline-secondary"}" on:click={() => vote_answer(answer.id)}>
+                    <button class="btn btn-sm {check_voted(answer) ? "btn-secondary" : "btn-outline-secondary"}" 
+                        on:click={() => check_voted(answer) ? unvote_answer(answer.id) : vote_answer(answer.id)}
+                    >
                         추천
                         <span class="badge rounded-pill bg-success">{answer.voter.length}</span>
                     </button>
