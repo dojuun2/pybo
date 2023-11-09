@@ -97,6 +97,19 @@
         )
     }
 
+    // 질문 추천취소
+    function unvote_question(question_id) {
+        let url = "/api/question/unvote/" + question_id
+        fastapi("delete", url, {}, 
+            (json) => {
+                get_question(page)
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }
+
     // 답변 추천
     function vote_answer(answer_id) {
         let url = "/api/answer/vote/" + answer_id
@@ -149,7 +162,12 @@
                 </div>
             </div>
             <div class="my-3">
-                <button class="btn btn-sm {check_voted(question) ? "btn-secondary" : "btn-outline-secondary"}" on:click={() => vote_question(question.id)}>
+                <button 
+                    class="btn btn-sm {check_voted(question) ? "btn-secondary" : "btn-outline-secondary"}" 
+                    on:click={() => check_voted(question) 
+                                                ? unvote_question(question.id) 
+                                                : vote_question(question.id)}
+                    >
                     추천
                     <span class="badge rounded-pill bg-success">{question.voter.length}</span>
                 </button>
