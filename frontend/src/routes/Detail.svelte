@@ -55,7 +55,7 @@
     // 질문 삭제
     function delete_question(question_id) {
         if(confirm("정말 삭제하시겠습니까?")) {
-            let url = "/api/question/delete/" + question_id
+            let url = "/api/questions/" + question_id
             
             fastapi("delete", url, {}, 
                 (json) => {

@@ -89,8 +89,8 @@ def question_update(
     question_crud.question_update(db, question, question_update=question_update)
 
 
-# 질문 삭제 api
-@router.delete("/delete/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+# 질문 삭제
+@router.delete("/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
 def question_delete(
     question_id: int,
     db: Session = Depends(get_db),
