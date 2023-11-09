@@ -18,7 +18,7 @@
       keyword: $keyword
     }
 
-    fastapi('get', '/api/question/list', params, (json) => {
+    fastapi('get', '/api/questions', params, (json) => {
       question_list = json.question_list
       total = json.total
       kw = $keyword

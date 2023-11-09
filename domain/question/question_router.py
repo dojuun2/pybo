@@ -8,11 +8,11 @@ from domain.user.user_router import get_current_user
 from models import User
 
 
-router = APIRouter(prefix="/api/question")
+router = APIRouter(prefix="/api/questions")
 
 
 # 질문 목록 조회
-@router.get("/list", response_model=question_schema.QuestionList)
+@router.get("", response_model=question_schema.QuestionList)
 def question_list(
     db: Session = Depends(get_db), page: int = 0, size: int = 10, keyword: str = ""
 ):
@@ -45,7 +45,7 @@ def question_detail(
         response.set_cookie(
             key=f"q{question_id}",
             value=str(question_id),
-            max_age=60,  # 만료시간 1분
+            max_age=60,     # 만료시간 1분
         )
         question_crud.up_hits(db, question)  # 질문 조회수 상승
 
@@ -129,7 +129,7 @@ def question_vote(
     voter_information = question_crud.get_question_voter(
         db, current_user.id, question_id
     )
-    if voter_information:
+    if not voter_information:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 이미 존재합니다."
         )
@@ -145,7 +145,7 @@ def question_vote(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    # 추천 취소할 질문 가져오기
+    # 추천할 질문 가져오기
     question = question_crud.get_question(db, question_id=question_id)
     if not question:
         raise HTTPException(
@@ -160,6 +160,6 @@ def question_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 존재하지 않습니다."
         )
-
+        
     # 질문 추천취소
     question_crud.question_unvote(db, question, current_user)
