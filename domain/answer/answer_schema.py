@@ -28,5 +28,6 @@ class Answer(BaseModel):
 
 
 # 답변 수정 입력 스키마
-class AnswerUpdate(AnswerCreate):
+class AnswerUpdate(BaseModel):
     id: int
+    content: str
