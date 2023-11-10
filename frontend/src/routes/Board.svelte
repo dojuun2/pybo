@@ -2,12 +2,14 @@
     import { link } from "svelte-spa-router";
     import fastapi from "../lib/api";
     import moment from "moment/min/moment-with-locales"
-    import { board_page } from "../lib/store";
+    import { board_page, prev_page } from "../lib/store";
 
     let board_list = []
     let size = 10
     let total = 0
     $: total_page = Math.ceil(total / size)
+
+    $prev_page = "/board"
 
     // 게시글 목록 가져오기
     function get_board_list() {

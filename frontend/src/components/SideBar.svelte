@@ -1,6 +1,6 @@
 <script>
     import { link } from "svelte-spa-router";
-    import { page, keyword, category } from "../lib/store"
+    import { category } from "../lib/store"
 </script>
 
 <!-- 사이드바 -->

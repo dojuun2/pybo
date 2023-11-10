@@ -2,7 +2,7 @@
     import moment from "moment/min/moment-with-locales"
     import { link, push } from "svelte-spa-router";
     import fastapi from "../lib/api";
-    import { is_login, username } from "../lib/store";
+    import { is_login, prev_page, username } from "../lib/store";
     import Error from "../components/Error.svelte";
 
     export let params = {}
@@ -11,6 +11,7 @@
     let content = ""
     let error = {detail:[]}
 
+    $prev_page = "/board-detail/" + board_id
 
     // 게시글 가져오기
     function get_board_detail() {

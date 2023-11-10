@@ -3,7 +3,7 @@
     import Error from "../components/Error.svelte"
     import { link, push } from "svelte-spa-router";
     import moment from "moment/min/moment-with-locales"
-    import { is_login, username } from "../lib/store";
+    import { is_login, prev_page, username } from "../lib/store";
     import { marked } from "marked"
 
     export let params = {}
@@ -16,6 +16,8 @@
     let total = 0   // 전체 답변 건수
     let sort_order = "date"; // 답변 정렬에 쓰일 변수(기본값 "date")
     $: total_page = Math.ceil(total / size)   // 전체 페이지
+
+    $prev_page = "/detail/" + question_id
 
     function get_question(_page) {
         let params = {

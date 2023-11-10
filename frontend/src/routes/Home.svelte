@@ -1,15 +1,18 @@
 <script>
   import { link } from "svelte-spa-router";
   import fastapi from "../lib/api"
-  import { page, is_login, keyword } from "../lib/store"
+  import { page, is_login, keyword, prev_page } from "../lib/store"
   import moment from "moment/min/moment-with-locales"
 
+  
   let question_list = []
   let size = 10
   let total = 0
   let kw = ""
   $: total_page = Math.ceil(total / size)   // 스벨트에서 변수 앞에 `$:` 가 붙으면 `반응형 변수`
   
+  $prev_page = "/"
+
   // 질문 목록 가져오는 함수
   function get_question_list() {
     let params = {

@@ -22,3 +22,4 @@ export const username = persist_storage("username", "")
 export const is_login = persist_storage("is_login", false)   // 로그인 여부를 체크할 변수
 export const category = persist_storage("category", "home")  // 카테고리
 export const board_page = persist_storage("board_page", 0)  // 자유게시판 페이지 번호
+export const prev_page = persist_storage("prev_page", "/")   // 이전 페이지

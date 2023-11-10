@@ -2,7 +2,7 @@
     import { push } from "svelte-spa-router";
     import Error from "../components/Error.svelte";
     import fastapi from "../lib/api";
-    import { access_token, username, is_login } from "../lib/store";
+    import { access_token, username, is_login, category, prev_page } from "../lib/store";
 
     let error = {detail: []}
     let login_username = ""
@@ -22,7 +22,7 @@
                 $access_token = json.access_token
                 $username = json.username
                 $is_login = true
-                push("/")
+                push($prev_page)
             }, 
             (json_error) => {
                 error = json_error

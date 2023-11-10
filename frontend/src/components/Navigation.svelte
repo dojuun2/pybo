@@ -1,6 +1,6 @@
 <script>
     import { link } from "svelte-spa-router";
-    import { page, access_token, username, is_login, keyword, category, board_page } from "../lib/store"
+    import { page, access_token, username, is_login, keyword, category, board_page, prev_page } from "../lib/store"
 </script>
 
 <!-- 내비게이션 바 -->
@@ -21,7 +21,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {#if $is_login}
                     <li class="nav-item">
-                        <a use:link href="/" class="nav-link" on:click={() => {
+                        <a use:link href="{$prev_page}" class="nav-link" on:click={() => {
                             if (confirm("로그아웃 하시겠습니까?")) {
                                 $access_token = ""
                                 $username = ""
