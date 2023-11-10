@@ -57,7 +57,7 @@ def answer_update(
 
 
 # 답변 삭제 api
-@router.delete("/delete/{answer_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{answer_id}", status_code=status.HTTP_204_NO_CONTENT)
 def answer_delete(
     answer_id: int,
     db: Session = Depends(get_db),

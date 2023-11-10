@@ -72,7 +72,7 @@
     // 답변 삭제
     function delete_answer(answer_id) {
         if(confirm("정말 삭제하시겠습니까?")) {
-            let url = "/api/answer/delete/" + answer_id
+            let url = "/api/answers/" + answer_id
             
             fastapi("delete", url, {}, 
                 (json) => {
