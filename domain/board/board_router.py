@@ -24,11 +24,11 @@ def create_board(
 # 게시글 목록 api
 @router.get("", response_model=board_schema.BoardList)
 def get_board_list(
-    db: Session = Depends(get_db),
-    page: int = 0,
-    size: int = 10,
+    db: Session = Depends(get_db), page: int = 0, size: int = 10, keyword: str = ""
 ):
-    total, board_list = board_crud.get_board_list(db, skip=page * size, limit=size)
+    total, board_list = board_crud.get_board_list(
+        db, skip=page * size, limit=size, keyword=keyword
+    )
 
     return {"total": total, "board_list": board_list}
 
@@ -128,9 +128,13 @@ def unvote_board(
         )
 
     # 추천 정보 가져오기
-    vote_info = board_crud.get_board_vote_info(db, user_id=current_user.id, board_id=board_id)
+    vote_info = board_crud.get_board_vote_info(
+        db, user_id=current_user.id, board_id=board_id
+    )
     if not vote_info:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="추천하지 않은 게시물입니다.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="추천하지 않은 게시물입니다."
+        )
 
     # 게시물 추천 취소
     board_crud.unvote_board(db=db, board=board, user=current_user)

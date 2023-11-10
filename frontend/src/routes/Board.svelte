@@ -2,11 +2,12 @@
     import { link } from "svelte-spa-router";
     import fastapi from "../lib/api";
     import moment from "moment/min/moment-with-locales"
-    import { board_page, prev_page } from "../lib/store";
+    import { board_keyword, board_page, prev_page } from "../lib/store";
 
     let board_list = []
     let size = 10
     let total = 0
+    let board_kw = ""
     $: total_page = Math.ceil(total / size)
 
     $prev_page = "/board"
@@ -17,17 +18,19 @@
         let params = {
             page: $board_page,
             size: size,
+            keyword: $board_keyword,
         }
         
         fastapi("get", url, params, 
             (json) => {
                 board_list = json.board_list
                 total = json.total
+                board_kw = $board_keyword
             }
         )
     }
-
-    $: $board_page, get_board_list()
+    
+    $: $board_page, $board_keyword, get_board_list()
 </script>
 
 <div class="container my-3">
@@ -38,8 +41,8 @@
       </div>
       <div class="col-6">
         <div class="input-group">
-          <input type="text" class="form-control">
-          <button class="btn btn-outline-secondary">
+          <input type="text" class="form-control" bind:value="{board_kw}">
+          <button class="btn btn-outline-secondary" on:click={() => {$board_keyword = board_kw, $board_page = 0}}>
             검색하기
           </button>
         </div>
