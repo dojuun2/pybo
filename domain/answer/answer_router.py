@@ -7,21 +7,20 @@ from domain.question import question_crud
 from models import Answer, User
 from domain.user.user_router import get_current_user
 
-router = APIRouter(prefix="/api/answer")
+router = APIRouter(prefix="/api/answers")
 
 
 # 답변 등록 api
-@router.post("/create/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("", status_code=status.HTTP_204_NO_CONTENT)
 def answer_create(
     answer_create: answer_schema.AnswerCreate,
-    question_id: int,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     # 답변에 대한 질문 가져오기
-    question = question_crud.get_question(db=db, question_id=question_id)
+    question = question_crud.get_question(db=db, question_id=answer_create.question_id)
     if not question:
-        raise HTTPException(status_code=404, detail="Question not found")
+        raise HTTPException(status_code=404, detail="존재하지 않는 질문입니다.")
 
     # 답변 등록
     answer_crud.answer_create(db, answer_create, question, user=current_user)
@@ -98,10 +97,9 @@ def answer_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 이미 존재합니다."
         )
-        
+
     # 답변 추천
     answer_crud.answer_vote(db, answer, current_user)
-    
 
 
 # 답변 추천취소 api
@@ -124,7 +122,7 @@ def answer_vote(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="추천 정보가 존재하지 않습니다."
         )
-    
+
     # 답변 추천 취소
     answer_crud.answer_unvote(db, answer, current_user)
 

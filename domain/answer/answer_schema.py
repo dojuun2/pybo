@@ -6,6 +6,7 @@ from domain.user.user_schema import User
 
 # 답변 등록 입력 스키마
 class AnswerCreate(BaseModel):
+    question_id: int
     content: str
     
     @validator("content")

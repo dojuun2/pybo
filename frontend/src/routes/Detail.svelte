@@ -7,7 +7,7 @@
     import { marked } from "marked"
 
     export let params = {}
-    let question_id = params.question_id
+    const question_id = params.question_id
     let question = {answers:[], voter:[], content: ""}
     let content = ""
     let error = {detail:[]}
@@ -36,8 +36,9 @@
     function post_answer(event) {
         event.preventDefault()  // submit이 눌릴경우 form이 자동으로 전동되는 것을 방지하기 위함
         
-        let url = "/api/answer/create/" + question_id
+        let url = "/api/answers"
         let params = {
+            question_id: question_id,
             content: content,
         }
         fastapi("post", url, params, 
