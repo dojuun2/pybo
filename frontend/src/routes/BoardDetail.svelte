@@ -7,7 +7,7 @@
 
     export let params = {}
     const board_id = params.board_id
-    let board = {comments:[], user:[]}
+    let board = {comments:[], user:[], voter:[]}
     let content = ""
     let error = {detail:[]}
 
@@ -39,6 +39,35 @@
                 }
             )
         }
+    }
+
+    // 게시물 추천
+    function vote_board() {
+        let url = "/api/boards/recommendations"
+        let params = {
+            board_id: board_id
+        }
+        fastapi("post", url, params, 
+            (json) => {
+                get_board_detail()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }
+
+    // 게시물 추천 취소
+    function unvote_board() {
+        let url = "/api/boards/" + board_id + "/recommendations"
+        fastapi("delete", url, {}, 
+            (json) => {
+                get_board_detail()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
     }
 
     // 댓글 등록
@@ -78,6 +107,17 @@
         }
     }
 
+    // 추천 여부 확인 함수
+    function check_voted(post) {
+        // 추천을 한 게시물이면 true 반환
+        if(post.voter.some(voter => voter.username === $username)) {
+            return true
+        }
+        
+        // 그렇지 않은 경우엔 false 반환
+        return false
+    }
+
 </script>
 
 <div class="container my-3">
@@ -99,9 +139,11 @@
                 </div>
             </div>
             <div class="my-3">
-                <button class="btn btn-sm">
+                <button class="btn btn-sm {check_voted(board) ? "btn-secondary" : "btn-outline-secondary"}" 
+                    on:click={check_voted(board) ? unvote_board : vote_board}
+                >
                     추천
-                    <span class="badge rounded-pill bg-success">0</span>
+                    <span class="badge rounded-pill bg-success">{board.voter.length}</span>
                 </button>
                     {#if board.user.username === $username}
                         <a use:link href="/board-modify/{board.id}" class="btn btn-sm btn-outline-secondary">수정</a>

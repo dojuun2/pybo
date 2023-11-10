@@ -2,7 +2,7 @@ import datetime
 from domain.board import board_schema
 from sqlalchemy.orm import Session
 
-from models import Board, User
+from models import Board, User, board_voter
 
 
 # 게시글 등록
@@ -48,3 +48,29 @@ def update_board(db: Session, board: Board, board_update: board_schema.BoardUpda
 def delete_board(db: Session, board: Board):
     db.delete(board)
     db.commit()
+
+
+# 게시글 추천
+def vote_board(db: Session, board: Board, user: User):
+    board.voter.append(user)
+    db.commit()
+
+
+# 게시글 추천 취소
+def unvote_board(db: Session, board: Board, user: User):
+    board.voter.remove(user)
+    db.commit()
+
+
+# 추천 정보 가져오기
+def get_board_vote_info(db: Session, user_id: int, board_id: int):
+    vote_info = (
+        db.query(board_voter)
+        .filter(
+            board_voter.c.user_id == user_id, 
+            board_voter.c.board_id == board_id,
+        )
+        .first()
+    )
+
+    return vote_info

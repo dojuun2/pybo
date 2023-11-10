@@ -42,3 +42,8 @@ class BoardCreate(BaseModel):
 # 게시글 수정
 class BoardUpdate(BoardCreate):
     id: int
+
+
+# 게시글 추천
+class BoardRecommendation(BaseModel):
+    board_id: int
