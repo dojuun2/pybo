@@ -104,7 +104,7 @@ def answer_vote(
 
 
 # 답변 추천취소 api
-@router.post("/unvote/{answer_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{answer_id}/recommendations", status_code=status.HTTP_204_NO_CONTENT)
 def answer_vote(
     answer_id: int,
     db: Session = Depends(get_db),

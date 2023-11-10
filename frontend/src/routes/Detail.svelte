@@ -134,9 +134,9 @@
 
     // 답변 추천취소
     function unvote_answer(answer_id) {
-        let url = "/api/answer/unvote/" + answer_id
+        let url = "/api/answers/" + answer_id + "/recommendations"
 
-        fastapi("post", url, {}, 
+        fastapi("delete", url, {}, 
             (json) => {
                 get_question(page)
             },
