@@ -20,7 +20,7 @@ SECRET_KEY = "d8ef910d62c71eb1fe7117f9fc623f863a06b9a07c86a53c1550bc6a963a92d5"
 ALGORITHM = "HS256"
 
 # 사용자 조회를 할 때 사용 될 'token'이 자동으로 매핑됨
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/users/login")
 
 router = APIRouter(prefix="/api/users")
 
