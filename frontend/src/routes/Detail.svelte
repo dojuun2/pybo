@@ -117,9 +117,12 @@
 
     // 답변 추천
     function vote_answer(answer_id) {
-        let url = "/api/answer/vote/" + answer_id
+        let url = "/api/answers/recommendations"
+        let params = {
+            id: answer_id,
+        }
 
-        fastapi("post", url, {}, 
+        fastapi("post", url, params, 
             (json) => {
                 get_question(page)
             },

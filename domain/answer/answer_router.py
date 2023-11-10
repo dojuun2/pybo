@@ -78,13 +78,14 @@ def answer_delete(
 
 
 # 답변 추천 api
-@router.post("/vote/{answer_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/recommendations", status_code=status.HTTP_204_NO_CONTENT)
 def answer_vote(
-    answer_id: int,
+    answer_recommendation: answer_schema.AnswerRecommendation,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     # 추천할 답변 가져오기
+    answer_id = answer_recommendation.id
     answer = answer_crud.answer_detail(db, answer_id)
     if not answer:
         raise HTTPException(

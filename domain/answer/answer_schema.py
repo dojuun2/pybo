@@ -31,3 +31,8 @@ class Answer(BaseModel):
 class AnswerUpdate(BaseModel):
     id: int
     content: str
+
+
+# 답변 추천
+class AnswerRecommendation(BaseModel):
+    id: int
