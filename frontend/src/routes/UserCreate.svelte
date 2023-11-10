@@ -13,7 +13,7 @@
     function post_user(event){
         event.preventDefault()
 
-        let url = "/api/user/create"
+        let url = "/api/users"
         let params = {
             username: username,
             password1: password1,

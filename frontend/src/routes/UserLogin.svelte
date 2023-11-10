@@ -11,7 +11,7 @@
     function login(event) {
         event.preventDefault()
 
-        let url = "/api/user/login"
+        let url = "/api/users/login"
         let params = {
             username: login_username, 
             password: login_password,

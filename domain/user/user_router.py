@@ -22,11 +22,11 @@ ALGORITHM = "HS256"
 # 사용자 조회를 할 때 사용 될 'token'이 자동으로 매핑됨
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")
 
-router = APIRouter(prefix="/api/user")
+router = APIRouter(prefix="/api/users")
 
 
 # 회원 등록
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("", status_code=status.HTTP_204_NO_CONTENT)
 def user_create(user_create: user_schema.UserCreate, db: Session = Depends(get_db)):
     # 존재하는 회원인지 체크
     existing_user = user_crud.get_existing_user(db=db, user_create=user_create)
