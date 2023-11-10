@@ -11,7 +11,7 @@
     let content = ""
 
     // 댓글 정보 가져오기
-    fastapi("get", "/api/comment/detail/" + comment_id, {}, (json) => {
+    fastapi("get", "/api/comments/" + comment_id, {}, (json) => {
         board_id = json.board_id
         content = json.content
     }) 
@@ -20,7 +20,7 @@
     function update_comment(event) {
         event.preventDefault()
 
-        let url = "/api/comment/update"
+        let url = "/api/comments"
         let params = {
             id: comment_id,
             content: content

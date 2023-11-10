@@ -6,6 +6,7 @@ from domain.user.user_schema import User
 
 # 댓글 등록 스키마
 class CommentCreate(BaseModel):
+    board_id: int
     content: str
     
     @validator("content")
@@ -27,5 +28,6 @@ class Comment(BaseModel):
    
 
 # 댓글 수정
-class CommentUpdate(CommentCreate):
+class CommentUpdate(BaseModel):
     id: int
+    content: str

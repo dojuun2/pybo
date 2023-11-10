@@ -2,12 +2,12 @@
     import moment from "moment/min/moment-with-locales"
     import { link, push } from "svelte-spa-router";
     import fastapi from "../lib/api";
-    import { is_login } from "../lib/store";
+    import { is_login, username } from "../lib/store";
     import Error from "../components/Error.svelte";
 
     export let params = {}
     const board_id = params.board_id
-    let board = {comments:[]}
+    let board = {comments:[], user:[]}
     let content = ""
     let error = {detail:[]}
 
@@ -44,8 +44,9 @@
     function post_comment(event) {
         event.preventDefault()  // submit이 눌릴경우 form이 자동으로 전동되는 것을 방지하기 위함
         
-        let url = "/api/comment/create/" + board_id
+        let url = "/api/comments"
         let params = {
+            board_id: board_id,
             content: content,
         }
         fastapi("post", url, params, 
@@ -63,7 +64,7 @@
     // 댓글 삭제
     function delete_comment(comment_id){
         if (confirm("댓글을 삭제하시겠습니까?")) {
-            let url = "/api/comment/delete/" + comment_id
+            let url = "/api/comments/" + comment_id
     
             fastapi("delete", url, {}, 
                 (json) => {
@@ -101,8 +102,10 @@
                     추천
                     <span class="badge rounded-pill bg-success">0</span>
                 </button>
-                    <a use:link href="/board-modify/{board.id}" class="btn btn-sm btn-outline-secondary">수정</a>
-                    <button class="btn btn-sm btn-outline-secondary" on:click={delete_board}>삭제</button>
+                    {#if board.user.username === $username}
+                        <a use:link href="/board-modify/{board.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+                        <button class="btn btn-sm btn-outline-secondary" on:click={delete_board}>삭제</button>
+                    {/if}
             </div>
         </div>
     </div>
@@ -133,8 +136,10 @@
                         추천
                         <span class="badge rounded-pill bg-success">0</span>
                     </button>
-                    <a use:link href="/comment-modify/{comment.id}" class="btn btn-sm btn-outline-secondary">수정</a>
-                    <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_comment(comment.id)}>삭제</button>
+                    {#if comment.user.username === $username}
+                        <a use:link href="/comment-modify/{comment.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+                        <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_comment(comment.id)}>삭제</button>
+                    {/if}
                 </div>
             </div>
         </div>
