@@ -2,7 +2,7 @@
     import { link } from "svelte-spa-router";
     import fastapi from "../lib/api";
     import moment from "moment/min/moment-with-locales"
-    import { board_keyword, board_page, prev_page } from "../lib/store";
+    import { board_keyword, board_page, is_login, prev_page } from "../lib/store";
 
     let board_list = []
     let size = 10
@@ -37,7 +37,7 @@
   <h2 class="border-bottom py-2">자유게시판</h2>
   <div class="row my-3">
       <div class="col-6">
-        <a use:link href="/board-create" class="btn btn-primary">게시글 작성하기</a>
+        <a use:link href="/board-create" class="btn btn-primary {$is_login ? '' : 'disabled'}">게시글 작성하기</a>
       </div>
       <div class="col-6">
         <div class="input-group">
