@@ -10,7 +10,7 @@
     function post_board(event) {
         event.preventDefault()
 
-        let url = "/api/board/create"
+        let url = "/api/boards"
         let params = {
             subject: subject,
             content: content,

@@ -11,7 +11,7 @@
 
     // 게시글 목록 가져오기
     function get_board_list() {
-        let url = "/api/board/list"
+        let url = "/api/boards"
         let params = {
             page: $board_page,
             size: size,

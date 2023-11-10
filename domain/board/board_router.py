@@ -8,11 +8,11 @@ from domain.user.user_router import get_current_user
 from models import User
 
 
-router = APIRouter(prefix="/api/board")
+router = APIRouter(prefix="/api/boards")
 
 
 # 게시글 등록 api
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("", status_code=status.HTTP_204_NO_CONTENT)
 def create_board(
     board_create: board_schema.BoardCreate,
     db: Session = Depends(get_db),
@@ -22,7 +22,7 @@ def create_board(
 
 
 # 게시글 목록 api
-@router.get("/list", response_model=board_schema.BoardList)
+@router.get("", response_model=board_schema.BoardList)
 def get_board_list(
     db: Session = Depends(get_db),
     page: int = 0,
@@ -34,7 +34,7 @@ def get_board_list(
 
 
 # 게시글 상세조회 api
-@router.get("/detail/{board_id}", response_model=board_schema.Board)
+@router.get("/{board_id}", response_model=board_schema.Board)
 def get_board_detail(board_id: int, db: Session = Depends(get_db)):
     board_detail = board_crud.get_board_detail(board_id=board_id, db=db)
 
@@ -42,7 +42,7 @@ def get_board_detail(board_id: int, db: Session = Depends(get_db)):
 
 
 # 게시글 수정 api
-@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+@router.put("", status_code=status.HTTP_204_NO_CONTENT)
 def update_board(
     board_update: board_schema.BoardUpdate,  # 수정 스키마
     db: Session = Depends(get_db),
@@ -66,7 +66,7 @@ def update_board(
 
 
 # 게시글 삭제 api
-@router.delete("/delete/{board_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{board_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_board(
     board_id: int,
     db: Session = Depends(get_db),

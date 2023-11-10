@@ -12,7 +12,7 @@
 
     // 수정할 게시글 가져오기
     function get_board_detail() {
-        let url = "/api/board/detail/" + board_id
+        let url = "/api/boards/" + board_id
         
         fastapi("get", url, {}, (json) => {
             subject = json.subject
@@ -26,7 +26,7 @@
     function update_board(event) {
         event.preventDefault()
 
-        let url = "/api/board/update"
+        let url = "/api/boards"
         let params = {
             id: board_id,
             subject: subject,

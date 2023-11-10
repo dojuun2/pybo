@@ -14,7 +14,7 @@
 
     // 게시글 가져오기
     function get_board_detail() {
-        let url = "/api/board/detail/" + board_id
+        let url = "/api/boards/" + board_id
 
         fastapi("get", url, {}, 
             (json) => {
@@ -27,7 +27,7 @@
     // 게시글 삭제
     function delete_board() {
         if (confirm("삭제하시겠습니까?")) {
-            let url = "/api/board/delete/" + board_id
+            let url = "/api/boards/" + board_id
     
             fastapi("delete", url, {}, 
                 (json) => {
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary">목록으로</button>
+    <button class="btn btn-primary" on:click={() => push("/board")}>목록으로</button>
 
     <!-- 댓글 -->
     <div class="border-bottom my-3 py-2 d-flex justify-content-between">
