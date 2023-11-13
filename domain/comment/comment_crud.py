@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from domain.comment import comment_schema
 
-from models import Board, Comment, User
+from models import Board, Comment, User, comment_voter
 
 
 # 댓글 등록
@@ -39,3 +39,23 @@ def update_comment(
 def delete_comment(db: Session, comment: Comment):
     db.delete(comment)
     db.commit()
+
+
+# 댓글 추천
+def recommend_comment(db: Session, comment: Comment, user: User):
+    comment.voter.append(user)
+    db.commit()
+
+
+# 추천 정보 가져오기
+def get_comment_vote_info(db: Session, comment_id: int, user_id: int):
+    vote_info = (
+        db.query(comment_voter)
+        .filter(
+            comment_voter.c.comment_id == comment_id, 
+            comment_voter.c.user_id == user_id
+        )
+        .first()
+    )
+
+    return vote_info

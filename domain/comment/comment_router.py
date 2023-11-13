@@ -77,6 +77,34 @@ def delete_comment(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="삭제 권한이 없습니다."
         )
-    
+
     # 댓글 삭제하기
     comment_crud.delete_comment(db, comment=comment)
+
+
+# 댓글 추천 api
+@router.post("/recommendations", status_code=status.HTTP_204_NO_CONTENT)
+def recommend_comment(
+    comment_recommend: comment_schema.CommentRecommend,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 추천할 댓글 가져오기
+    comment_id = comment_recommend.comment_id
+    comment = comment_crud.get_comment_detail(db, comment_id=comment_id)
+    if not comment:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 댓글입니다."
+        )
+
+    # 추천 정보
+    vote_info = comment_crud.get_comment_vote_info(
+        db, comment_id=comment_id, user_id=current_user.id
+    )
+    if vote_info:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="이미 추천한 댓글입니다."
+        )
+
+    # 댓글 추천
+    comment_crud.recommend_comment(db, comment=comment, user=current_user)

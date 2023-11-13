@@ -31,3 +31,8 @@ class Comment(BaseModel):
 class CommentUpdate(BaseModel):
     id: int
     content: str
+
+
+# 댓글 추천 스키마
+class CommentRecommend(BaseModel):
+    comment_id: int
