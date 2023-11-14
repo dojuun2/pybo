@@ -47,6 +47,12 @@ def recommend_comment(db: Session, comment: Comment, user: User):
     db.commit()
 
 
+# 댓글 추천 취소
+def unrecommend_comment(db: Session, comment: Comment, user: User):
+    comment.voter.remove(user)
+    db.commit()
+
+
 # 추천 정보 가져오기
 def get_comment_vote_info(db: Session, comment_id: int, user_id: int):
     vote_info = (

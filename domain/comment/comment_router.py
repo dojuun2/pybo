@@ -108,3 +108,30 @@ def recommend_comment(
 
     # 댓글 추천
     comment_crud.recommend_comment(db, comment=comment, user=current_user)
+
+
+# 댓글 추천 취소 api
+@router.post("/{comment_id}/recommendations", status_code=status.HTTP_204_NO_CONTENT)
+def unrecommend_comment(
+    comment_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # 추천 취소할 댓글 가져오기
+    comment = comment_crud.get_comment_detail(db, comment_id=comment_id)
+    if not comment:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="존재하지 않는 댓글입니다."
+        )
+
+    # 추천 정보
+    vote_info = comment_crud.get_comment_vote_info(
+        db, comment_id=comment_id, user_id=current_user.id
+    )
+    if not vote_info:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="추천하지 않은 댓글입니다."
+        )
+
+    # 댓글 추천 취소
+    comment_crud.unrecommend_comment(db, comment=comment, user=current_user)
