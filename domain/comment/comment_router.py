@@ -111,7 +111,7 @@ def recommend_comment(
 
 
 # 댓글 추천 취소 api
-@router.post("/{comment_id}/recommendations", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{comment_id}/recommendations", status_code=status.HTTP_204_NO_CONTENT)
 def unrecommend_comment(
     comment_id: int,
     db: Session = Depends(get_db),
