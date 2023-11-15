@@ -107,6 +107,36 @@
         }
     }
 
+    // 댓글 추천
+    function vote_comment(comment_id) {
+        let url = "/api/comments/recommendations"
+        let params = {
+            comment_id: comment_id
+        }
+        fastapi("post", url, params, 
+            (json) => {
+                get_board_detail()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }
+
+    // 댓글 추천 취소
+    function unvote_comment(comment_id) {
+        let url = "/api/comments/" + comment_id + "/recommendations"
+        fastapi("delete", url, {}, 
+            (json) => {
+                get_board_detail()
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
+    }
+
+
     // 추천 여부 확인 함수
     function check_voted(post) {
         // 추천을 한 게시물이면 true 반환
@@ -175,9 +205,11 @@
                     </div>
                 </div>
                 <div class="my-3">
-                    <button class="btn btn-sm">
+                    <button class="btn btn-sm {check_voted(comment) ? "btn-secondary" : "btn-outline-secondary"}"
+                        on:click={check_voted(comment) ? unvote_comment(comment.id) : vote_comment(comment.id)}
+                    >
                         추천
-                        <span class="badge rounded-pill bg-success">0</span>
+                        <span class="badge rounded-pill bg-success">{comment.voter.length}</span>
                     </button>
                     {#if comment.user.username === $username}
                         <a use:link href="/comment-modify/{comment.id}" class="btn btn-sm btn-outline-secondary">수정</a>
